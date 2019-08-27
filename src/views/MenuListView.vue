@@ -3,10 +3,12 @@
     <div v-for="menu in currentMenu" :key="menu.id">
       <app-menu :categoryId="categoryId">
         <h2 slot="name">{{ menu.name }}</h2>
-        <p slot="price">Price: ₹{{ menu.price }}</p>
+        <p slot="price">₹ {{ menu.price }}</p>
         <div v-if="categoryId == 4" slot="quantity">
-          <p>Quantity:
-          <ion-badge color="primary">{{ menu.quantity }}</ion-badge></p>
+          <p>
+            x  
+            <ion-badge color="primary">{{ menu.quantity }}</ion-badge>
+          </p>
         </div>
         <p slot="description">{{ menu.description }}</p>
       </app-menu>
@@ -46,7 +48,7 @@ export default {
       "fetchMiscellaneousMenu"
     ]),
     goToAddMenu() {
-      this.$router.push({ name: 'AddMenu' })
+      this.$router.push({ name: 'AddMenu', params: { categoryId: this.categoryId } });
     }
   },
   created() {

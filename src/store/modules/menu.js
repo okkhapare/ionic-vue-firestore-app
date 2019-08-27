@@ -77,7 +77,7 @@ export const menu = {
             }).catch((err) => {
                 console.log(err)
             })
-        }       
+        }    
     },
     getters: {
         getBreakfastMenu: (state) => {

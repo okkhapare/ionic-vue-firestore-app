@@ -14,7 +14,9 @@
 <style scoped>
 ion-title {
   font-family: Montserrat;
-  font-size: 24px;
+  font-size: 26px;
+  letter-spacing: 1px;
+  color: rgb(255, 255, 255);
 }
 </style>
 
