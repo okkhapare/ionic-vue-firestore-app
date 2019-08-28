@@ -1,81 +1,102 @@
 <template>
   <div>
+    <form id="form">
     <ion-grid>
-      <ion-row color="primary" justify-content-center>
-        <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
-          <ion-item>
-            <ion-label>Menu Name</ion-label>
-            <ion-input
-              name="name"
-              type="text"
-              placeholder="Item Name"
-              oninput="handleNameValue(event)"
-            ></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label>Menu Price</ion-label>
-            <ion-input
-              name="price"
-              type="number"
-              placeholder="In Rupees"
-              oninput="handlePriceValue(event)"
-            ></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label>Item Quantity</ion-label>
-            <ion-input
-              name="quantity"
-              type="text"
-              placeholder="Number of Items"
-              oninput="handleQuantityValue(event)"
-            ></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label>Menu Description</ion-label>
-            <ion-textarea
-              placeholder="Write Something About Your Menu Item..."
-              oninput="handleDescriptionValue(event)"
-            ></ion-textarea>
-          </ion-item>
-          <ion-button size="medium" type="submit" expand="block">Add Menu</ion-button>
+      <ion-row>
+        <ion-col>
+          <label for="name">Name:</label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <input type="text" name="name" id="name" v-model="menu.name" />
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <label for="price">Price:</label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <input type="number" name="price" id="price" v-model="menu.price" />
+        </ion-col>
+      </ion-row>
+
+      <ion-row v-if="categoryId == 4">
+        <ion-col>
+          <label for="quantity">Quantity:</label>
+        </ion-col>
+      </ion-row>
+      <ion-row v-if="categoryId == 4">
+        <ion-col>
+          <input type="number" name="quantity" id="quantity" v-model="menu.quantity" />
+        </ion-col>
+      </ion-row>
+
+      <ion-row>
+        <ion-col>
+          <label for="description">Description:</label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <textarea
+            name="description"
+            cols="23"
+            rows="5"
+            id="description"
+            v-model="menu.description"
+          ></textarea>
         </ion-col>
       </ion-row>
     </ion-grid>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+          <slot :name="this.addOrEdit"></slot>
+          <input type="reset" value="Reset Form" id="reset-form">
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    </form>
   </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            menu: {
-                name: '',
-                price: 0,
-                quantity: 0,
-                description: ''
-            }
-        }
-    },
-    methods: {
-        handleNameValue(event) {
-            this.name = event.target.value;
-        },
-        handlePriceValue(event) {
-            this.price = event.target.value;
-        },
-        handleQuantityValue(event) {
-            this.quantity = event.target.value;
-        },
-        handleDescriptionValue(event) {
-            this.description = event.target.value;
-        }
-    }
+  props: ["menu", "addOrEdit", "categoryId"]
 };
 </script>
 
 <style scoped>
-    ion-label {
-        font-family: Montserrat;
-        color: blue;
-    }
+label {
+  font-family: Montserrat;
+  font-size: 18px;
+}
+
+#reset-form {
+  padding: 12px 2px;
+  margin: 4px 2px;
+  font-family: Montserrat;
+  font-size: 18px;
+  color: white;
+  background-color: rgb(56, 128, 255);
+  border: none;
+  border-radius: 30px;
+  contain: content;
+}
+
+input, textarea {
+  font-family: Montserrat;
+  border: 1px solid rgb(61, 61, 61);
+  border-radius: 10px;
+  outline: none;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
 </style>

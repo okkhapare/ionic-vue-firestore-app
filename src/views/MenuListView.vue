@@ -48,7 +48,7 @@ export default {
       "fetchMiscellaneousMenu"
     ]),
     goToAddMenu() {
-      this.$router.push({ name: 'AddMenu', params: { categoryId: this.categoryId } });
+      this.$router.push({ name: 'AddMenuItem', params: { categoryId: this.categoryId } });
     }
   },
   created() {
@@ -76,9 +76,6 @@ export default {
     } else if (this.categoryId == 4) {
       this.currentMenu = this.getMiscellaneousMenu;
     }
-  },
-  deactivated() {
-    this.currentMenu = [];
   },
   components: {
     appMenu: Menu

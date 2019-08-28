@@ -38,9 +38,9 @@ export const menu = {
         }
     },
     actions: {
-        fetchBreakfastMenu: ({ commit }) => {
+        async fetchBreakfastMenu({ commit }) {
             commit('RESET_BREAKFAST_MENU')
-            breakfastMenuCollection.get().then((res) => {
+            await breakfastMenuCollection.get().then((res) => {
                 res.docs.forEach((doc) => {
                     commit('SET_BREAKFAST_MENU', doc.data())
                 })          
@@ -48,9 +48,9 @@ export const menu = {
                 console.log(err)
             })
         },
-        fetchLunchMenu: ({ commit }) => {
+        async fetchLunchMenu({ commit }) {
             commit('RESET_LUNCH_MENU')
-            lunchMenuCollection.get().then((res) => {
+            await lunchMenuCollection.get().then((res) => {
                 res.docs.forEach((doc) => {
                     commit('SET_LUNCH_MENU', doc.data())
                 })          
@@ -58,9 +58,9 @@ export const menu = {
                 console.log(err)
             })
         },
-        fetchDinnerMenu: ({ commit }) => {
+        async fetchDinnerMenu({ commit }) {
             commit('RESET_DINNER_MENU')
-            dinnerMenuCollection.get().then((res) => {
+            await dinnerMenuCollection.get().then((res) => {
                 res.docs.forEach((doc) => {
                     commit('SET_DINNER_MENU', doc.data())
                 })          
@@ -68,16 +68,24 @@ export const menu = {
                 console.log(err)
             })
         },
-        fetchMiscellaneousMenu: ({ commit }) => {
+        async fetchMiscellaneousMenu({ commit }) {
             commit('RESET_MISCELLANEOUS_MENU')
-            miscellaneousMenuCollection.get().then((res) => {
+            await miscellaneousMenuCollection.get().then((res) => {
                 res.docs.forEach((doc) => {
                     commit('SET_MISCELLANEOUS_MENU', doc.data())
                 })          
             }).catch((err) => {
                 console.log(err)
             })
-        }    
+        },
+        async addBreakfastMenu({ commit }, menu) {
+            await breakfastMenuCollection.add({
+                name: menu.name,
+                price: menu.price,
+                description: menu.description
+            })
+            commit('SET_BREAKFAST_MENU', menu)
+        }
     },
     getters: {
         getBreakfastMenu: (state) => {
