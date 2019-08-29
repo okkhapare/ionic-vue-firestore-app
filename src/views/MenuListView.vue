@@ -1,29 +1,50 @@
 <template>
-  <div>
-    <div v-for="menu in currentMenu" :key="menu.id">
-      <app-menu :categoryId="categoryId">
-        <h2 slot="name">{{ menu.name }}</h2>
-        <p slot="price">₹ {{ menu.price }}</p>
-        <div v-if="categoryId == 4" slot="quantity">
-          <p>
-            x  
-            <ion-badge color="primary">{{ menu.quantity }}</ion-badge>
-          </p>
-        </div>
-        <p slot="description">{{ menu.description }}</p>
-      </app-menu>
-    </div>
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-      <ion-fab-button @click="goToAddMenu()">
-        <ion-icon name="add"></ion-icon>
-      </ion-fab-button>
-    </ion-fab>
+  <div class="ion-page">
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-button
+            color="primary"
+            expand="full"
+            size="large"
+            shape="round"
+            @click="$router.push({ name: 'CategoryList' })"
+          >
+            <ion-icon name="arrow-back"></ion-icon>Back
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content>
+      <ion-header>Menu</ion-header>
+
+      <ion-list v-if="currentMenu.length > 0">
+        <ion-card v-for="menuItem in currentMenu" :key="menuItem.id">
+          <ion-card-header>
+            <ion-card-title>{{ menuItem.name }} | {{ menuItem.price }}</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-list>
+      <ion-list v-else>
+        <ion-item v-for="i in 20" :key="i">
+          <ion-card>
+            <ion-skeleton-text animated></ion-skeleton-text>
+          </ion-card>
+        </ion-item>
+      </ion-list>
+
+      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button @click="goToAddMenu()">
+          <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </ion-content>
   </div>
 </template>
 
 <script>
-import Menu from "../components/menu/Menu";
 import { mapActions, mapGetters } from "vuex";
+import { setTimeout } from "timers";
 
 export default {
   data() {
@@ -41,29 +62,11 @@ export default {
     ])
   },
   methods: {
-    ...mapActions([
-      "fetchBreakfastMenu",
-      "fetchLunchMenu",
-      "fetchDinnerMenu",
-      "fetchMiscellaneousMenu"
-    ]),
     goToAddMenu() {
-      this.$router.push({ name: 'AddMenuItem', params: { categoryId: this.categoryId } });
-    }
-  },
-  created() {
-    if (this.categoryId == 1) {
-      this.fetchBreakfastMenu();
-      this.currentMenu = this.getBreakfastMenu;
-    } else if (this.categoryId == 2) {
-      this.fetchLunchMenu();
-      this.currentMenu = this.getLunchMenu;
-    } else if (this.categoryId == 3) {
-      this.fetchDinnerMenu();
-      this.currentMenu = this.getDinnerMenu;
-    } else if (this.categoryId == 4) {
-      this.fetchMiscellaneousMenu();
-      this.currentMenu = this.getMiscellaneousMenu;
+      this.$router.push({
+        name: "AddMenuItem",
+        params: { categoryId: this.categoryId }
+      });
     }
   },
   activated() {
@@ -76,9 +79,6 @@ export default {
     } else if (this.categoryId == 4) {
       this.currentMenu = this.getMiscellaneousMenu;
     }
-  },
-  components: {
-    appMenu: Menu
   }
 };
 </script>

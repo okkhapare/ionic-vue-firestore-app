@@ -11,9 +11,9 @@ export default new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
-    { path: '', component: CategoryListView },
-    { path: '/category/:categoryId/menu-list', component: MenuListView },
-    { path: '/category/:categoryId/add-menu', component: AddMenuItem, name: 'AddMenu' },
-    { path: '/category/:categoryId/menu-list/:menuId', component: EditMenuItem, name: 'EditMenu' }  
+    { path: '', component: CategoryListView, name: 'CategoryList' },
+    { path: '/category/:categoryId/menu-list', component: MenuListView, name: 'MenuList' },
+    { path: '/category/:categoryId/add-menu', component: AddMenuItem, name: 'AddMenuItem' },
+    { path: '/category/:categoryId/menu-list/:menuId', component: EditMenuItem, name: 'EditMenuItem' }  
   ]
 })

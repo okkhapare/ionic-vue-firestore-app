@@ -1,22 +1,33 @@
 <template>
-  <div id="app">
-    <ion-header>
-      <ion-toolbar color="primary">
-        <ion-title>Catering App</ion-title>
-      </ion-toolbar>
-    </ion-header>
+  <ion-app>
     <keep-alive>
       <router-view :key="$route.fullPath"></router-view>
     </keep-alive>
-  </div>
+  </ion-app>
 </template>
 
-<style scoped>
-ion-title {
-  font-family: Montserrat;
-  font-size: 26px;
-  letter-spacing: 1px;
-  color: rgb(255, 255, 255);
+<script>
+import { mapActions } from 'vuex';
+
+export default {
+  methods: {
+    ...mapActions([
+      'fetchBreakfastMenu',
+      'fetchLunchMenu',
+      'fetchDinnerMenu',
+      'fetchMiscellaneousMenu'
+    ])
+  },
+  created() {
+    this.fetchBreakfastMenu();
+    this.fetchLunchMenu();
+    this.fetchDinnerMenu();
+    this.fetchMiscellaneousMenu();
+  }
 }
+</script>
+
+<style scoped>
+
 </style>
 
