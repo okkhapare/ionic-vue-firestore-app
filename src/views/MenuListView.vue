@@ -21,8 +21,10 @@
       <ion-list v-if="currentMenu.length > 0">
         <ion-card v-for="menuItem in currentMenu" :key="menuItem.id">
           <ion-card-header>
-            <ion-card-title>{{ menuItem.name }} | {{ menuItem.price }}</ion-card-title>
+            <ion-card-title>{{ menuItem.id }} | {{ menuItem.name }} | {{ menuItem.price }}</ion-card-title>
           </ion-card-header>
+          <ion-button @click.prevent="goToEditMenu(menuItem.id)">Edit</ion-button>
+          <ion-button @click.prevent="deleteMenu(menuItem.id)">Delete</ion-button>
         </ion-card>
       </ion-list>
       <ion-list v-else>
@@ -44,7 +46,6 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import { setTimeout } from "timers";
 
 export default {
   data() {
@@ -62,11 +63,34 @@ export default {
     ])
   },
   methods: {
+    ...mapActions([
+      "deleteBreakfastMenu",
+      "deleteLunchMenu",
+      "deleteDinnerMenu",
+      "deleteMiscellaneousMenu"
+    ]),
     goToAddMenu() {
       this.$router.push({
         name: "AddMenuItem",
         params: { categoryId: this.categoryId }
       });
+    },
+    goToEditMenu(menuItemId) {
+      this.$router.push({
+        name: "EditMenuItem",
+        params: { categoryId: this.categoryId, menuId: menuItemId }
+      });
+    },
+    deleteMenu(menuItemId) {
+      if (this.categoryId == 1) {
+        this.deleteBreakfastMenu(menuItemId);
+      } else if (this.categoryId == 2) {
+        this.deleteLunchMenu(menuItemId);
+      } else if (this.categoryId == 3) {
+        this.deleteDinnerMenu(menuItemId);
+      } else if (this.categoryId == 4) {
+        this.deleteMiscellaneousMenu(menuItemId);
+      }
     }
   },
   activated() {

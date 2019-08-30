@@ -14,6 +14,6 @@ export default new Router({
     { path: '', component: CategoryListView, name: 'CategoryList' },
     { path: '/category/:categoryId/menu-list', component: MenuListView, name: 'MenuList' },
     { path: '/category/:categoryId/add-menu', component: AddMenuItem, name: 'AddMenuItem' },
-    { path: '/category/:categoryId/menu-list/:menuId', component: EditMenuItem, name: 'EditMenuItem' }  
+    { path: '/category/:categoryId/menu/:menuId/edit', component: EditMenuItem, name: 'EditMenuItem' }  
   ]
 })
