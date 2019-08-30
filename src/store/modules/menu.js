@@ -13,7 +13,7 @@ export const menu = {
     },
     mutations: {
         'SET_BREAKFAST_MENU': (state, breakfastMenu) => {
-            const menuItem = { id: breakfastMenu.docId, ...breakfastMenu.docData }
+            var menuItem = { id: breakfastMenu.docId, ...breakfastMenu.docData }
             state.breakfastMenu.unshift(menuItem)
         },
         'UPDATE_BREAKFAST_MENU': (state, menu) => {
@@ -141,42 +141,6 @@ export const menu = {
             }).catch((err) => {
                 console.log(err)
             })
-        },
-
-        // Add Menu
-
-        async addBreakfastMenu({ commit }, menu) {
-            await breakfastMenuCollection.add({
-                name: menu.name,
-                price: menu.price,
-                description: menu.description
-            })
-            commit('SET_BREAKFAST_MENU', menu)
-        },
-        async addLunchMenu({ commit }, menu) {
-            await lunchMenuCollection.add({
-                name: menu.name,
-                price: menu.price,
-                description: menu.description
-            })
-            commit('SET_LUNCH_MENU', menu)
-        },
-        async addDinnerMenu({ commit }, menu) {
-            await dinnerMenuCollection.add({
-                name: menu.name,
-                price: menu.price,
-                description: menu.description
-            })
-            commit('SET_DINNER_MENU', menu)
-        },
-        async addMiscellaneousMenu({ commit }, menu) {
-            await miscellaneousMenuCollection.add({
-                name: menu.name,
-                price: menu.price,
-                quantity: menu.quantity,
-                description: menu.description
-            })
-            commit('SET_MISCELLANEOUS_MENU', menu)
         },
 
         // Update Menu

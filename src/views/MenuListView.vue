@@ -21,7 +21,7 @@
       <ion-list v-if="currentMenu.length > 0">
         <ion-card v-for="menuItem in currentMenu" :key="menuItem.id">
           <ion-card-header>
-            <ion-card-title>{{ menuItem.id }} | {{ menuItem.name }} | {{ menuItem.price }}</ion-card-title>
+            <ion-card-title>{{ menuItem.name }} | {{ menuItem.price }}</ion-card-title>
           </ion-card-header>
           <ion-button @click.prevent="goToEditMenu(menuItem.id)">Edit</ion-button>
           <ion-button @click.prevent="deleteMenu(menuItem.id)">Delete</ion-button>

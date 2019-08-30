@@ -23,7 +23,6 @@
               :value="menu.name"
               name="name"
               type="text"
-              required
             ></ion-input>
           </ion-item>
 
@@ -34,7 +33,6 @@
               :value="menu.price"
               name="price"
               type="number"
-              required
             ></ion-input>
           </ion-item>
 
@@ -45,7 +43,6 @@
               :value="menu.quantity"
               name="quantity"
               type="number"
-              required
             ></ion-input>
           </ion-item>
 
@@ -69,6 +66,12 @@
 
 <script>
 import { mapActions } from "vuex";
+import {
+  breakfastMenuCollection,
+  lunchMenuCollection,
+  dinnerMenuCollection,
+  miscellaneousMenuCollection
+} from "../../firebase";
 
 export default {
   data() {
@@ -82,7 +85,11 @@ export default {
       "addBreakfastMenu",
       "addLunchMenu",
       "addDinnerMenu",
-      "addMiscellaneousMenu"
+      "addMiscellaneousMenu",
+      "fetchBreakfastMenu",
+      "fetchLunchMenu",
+      "fetchDinnerMenu",
+      "fetchMiscellaneousMenu"
     ]),
     async addMenu() {
       const successAlert = await this.$ionic.alertController.create({
@@ -98,16 +105,37 @@ export default {
       });
 
       if (this.categoryId == 1) {
-        this.addBreakfastMenu(this.menu);
+        await breakfastMenuCollection.add({
+          name: this.menu.name,
+          price: this.menu.price,
+          description: this.menu.description
+        });
+        this.fetchBreakfastMenu();
         return await successAlert.present();
       } else if (this.categoryId == 2) {
-        this.addLunchMenu(this.menu);
+        await lunchMenuCollection.add({
+          name: this.menu.name,
+          price: this.menu.price,
+          description: this.menu.description
+        });
+        this.fetchLunchMenu();
         return await successAlert.present();
       } else if (this.categoryId == 3) {
-        this.addDinnerMenu(this.menu);
+        await dinnerMenuCollection.add({
+          name: this.menu.name,
+          price: this.menu.price,
+          description: this.menu.description
+        });
+        this.fetchDinnerMenu();
         return await successAlert.present();
       } else if (this.categoryId == 4) {
-        this.addMiscellaneousMenu(this.menu);
+        await miscellaneousMenuCollection.add({
+          name: this.menu.name,
+          price: this.menu.price,
+          quantity: this.menu.quantity,
+          description: this.menu.description
+        });
+        this.fetchMiscellaneousMenu();
         return await successAlert.present();
       }
     }
