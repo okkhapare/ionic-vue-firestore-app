@@ -66,12 +66,6 @@
 
 <script>
 import { mapActions } from "vuex";
-import {
-  breakfastMenuCollection,
-  lunchMenuCollection,
-  dinnerMenuCollection,
-  miscellaneousMenuCollection
-} from "../../firebase";
 
 export default {
   data() {
@@ -85,58 +79,17 @@ export default {
       "addBreakfastMenu",
       "addLunchMenu",
       "addDinnerMenu",
-      "addMiscellaneousMenu",
-      "fetchBreakfastMenu",
-      "fetchLunchMenu",
-      "fetchDinnerMenu",
-      "fetchMiscellaneousMenu"
+      "addMiscellaneousMenu"
     ]),
-    async addMenu() {
-      const successAlert = await this.$ionic.alertController.create({
-        header: "Success",
-        message: "Menu Item Successfully Added",
-        buttons: ["OK"]
-      });
-
-      const alert = await this.$ionic.alertController.create({
-        header: "Alert",
-        message: "Add Menu Details",
-        buttons: ["OK"]
-      });
-
+    addMenu() {
       if (this.categoryId == 1) {
-        await breakfastMenuCollection.add({
-          name: this.menu.name,
-          price: this.menu.price,
-          description: this.menu.description
-        });
-        this.fetchBreakfastMenu();
-        return await successAlert.present();
+        this.addBreakfastMenu(this.menu);
       } else if (this.categoryId == 2) {
-        await lunchMenuCollection.add({
-          name: this.menu.name,
-          price: this.menu.price,
-          description: this.menu.description
-        });
-        this.fetchLunchMenu();
-        return await successAlert.present();
+        this.addLunchMenu(this.menu);
       } else if (this.categoryId == 3) {
-        await dinnerMenuCollection.add({
-          name: this.menu.name,
-          price: this.menu.price,
-          description: this.menu.description
-        });
-        this.fetchDinnerMenu();
-        return await successAlert.present();
+        this.addDinnerMenu(this.menu);
       } else if (this.categoryId == 4) {
-        await miscellaneousMenuCollection.add({
-          name: this.menu.name,
-          price: this.menu.price,
-          quantity: this.menu.quantity,
-          description: this.menu.description
-        });
-        this.fetchMiscellaneousMenu();
-        return await successAlert.present();
+        this.addMiscellaneousMenu(this.menu);
       }
     }
   }

@@ -1,8 +1,9 @@
-import { 
-    breakfastMenuCollection, 
-    lunchMenuCollection, 
-    dinnerMenuCollection, 
-    miscellaneousMenuCollection } from '../../firebase'
+import {
+    breakfastMenuCollection,
+    lunchMenuCollection,
+    dinnerMenuCollection,
+    miscellaneousMenuCollection
+} from '../../firebase'
 
 export const menu = {
     state: {
@@ -12,132 +13,179 @@ export const menu = {
         miscellaneousMenu: []
     },
     mutations: {
-        'SET_BREAKFAST_MENU': (state, breakfastMenu) => {
-            var menuItem = { id: breakfastMenu.docId, ...breakfastMenu.docData }
-            state.breakfastMenu.unshift(menuItem)
+        // breakfast
+        'ADD_BREAKFAST_MENU': (state, breakfastMenuItem) => {
+            var menuItemObject = { id: breakfastMenuItem.breakfastMenuItemId, ...breakfastMenuItem.breakfastMenuItemData }
+            state.breakfastMenu.unshift(menuItemObject)
         },
-        'UPDATE_BREAKFAST_MENU': (state, menu) => {
+        'UPDATE_BREAKFAST_MENU': (state, menuItem) => {
             state.breakfastMenu.forEach((element) => {
-                if (element.id == menu.id) {
-                    element.name = menu.name
-                    element.price = menu.price
-                    element.description = menu.description
+                if (element.id == menuItem.id) {
+                    element.name = menuItem.name
+                    element.price = menuItem.price
+                    element.description = menuItem.description
                 }
             })
         },
-        'DELETE_BREAKFAST_MENU': (state, id) => {
-            var objectId = state.breakfastMenu.findIndex(element => element.id === id)
+        'DELETE_BREAKFAST_MENU': (state, menuId) => {
+            var objectId = state.breakfastMenu.findIndex(element => element.id === menuId)
             state.breakfastMenu.splice(objectId, 1)
         },
-        'RESET_BREAKFAST_MENU': (state) => {
-            state.breakfastMenu = []
+        // lunch
+        'ADD_LUNCH_MENU': (state, lunchMenuItem) => {
+            var menuItemObject = { id: lunchMenuItem.lunchMenuItemId, ...lunchMenuItem.lunchMenuItemData }
+            state.lunchMenu.unshift(menuItemObject)
         },
-        'SET_LUNCH_MENU': (state, lunchMenu) => {
-            const menuItem = { id: lunchMenu.docId, ...lunchMenu.docData }
-            state.lunchMenu.unshift(menuItem)
-        },
-        'UPDATE_LUNCH_MENU': (state, menu) => {
+        'UPDATE_LUNCH_MENU': (state, menuItem) => {
             state.lunchMenu.forEach((element) => {
-                if (element.id == menu.id) {
-                    element.name = menu.name
-                    element.price = menu.price
-                    element.description = menu.description
+                if (element.id == menuItem.id) {
+                    element.name = menuItem.name
+                    element.price = menuItem.price
+                    element.description = menuItem.description
                 }
             })
         },
-        'DELETE_LUNCH_MENU': (state, id) => {
-            var objectId = state.lunchMenu.findIndex(element => element.id === id)
+        'DELETE_LUNCH_MENU': (state, menuId) => {
+            var objectId = state.lunchMenu.findIndex(element => element.id === menuId)
             state.lunchMenu.splice(objectId, 1)
         },
-        'RESET_LUNCH_MENU': (state) => {
-            state.lunchMenu = []
+        // dinner
+        'ADD_DINNER_MENU': (state, dinnerMenuItem) => {
+            var menuItemObject = { id: dinnerMenuItem.dinnerMenuItemId, ...dinnerMenuItem.dinnerMenuItemData }
+            state.dinnerMenu.unshift(menuItemObject)
         },
-        'SET_DINNER_MENU': (state, dinnerMenu) => {
-            const menuItem = { id: dinnerMenu.docId, ...dinnerMenu.docData }
-            state.dinnerMenu.unshift(menuItem)
-        },
-        'UPDATE_DINNER_MENU': (state, menu) => {
+        'UPDATE_DINNER_MENU': (state, menuItem) => {
             state.dinnerMenu.forEach((element) => {
-                if (element.id == menu.id) {
-                    element.name = menu.name
-                    element.price = menu.price
-                    element.description = menu.description
+                if (element.id == menuItem.id) {
+                    element.name = menuItem.name
+                    element.price = menuItem.price
+                    element.description = menuItem.description
                 }
             })
         },
-        'DELETE_DINNER_MENU': (state, id) => {
-            var objectId = state.dinnerMenu.findIndex(element => element.id === id)
+        'DELETE_DINNER_MENU': (state, menuId) => {
+            var objectId = state.dinnerMenu.findIndex(element => element.id === menuId)
             state.dinnerMenu.splice(objectId, 1)
         },
-        'RESET_DINNER_MENU': (state) => {
-            state.dinnerMenu = []
+        // miscellaneous
+        'ADD_MISCELLANEOUS_MENU': (state, miscellaneousMenuItem) => {
+            var menuItemObject = { id: miscellaneousMenuItem.miscellaneousMenuItemId, ...miscellaneousMenuItem.miscellaneousMenuItemData }
+            state.miscellaneousMenu.unshift(menuItemObject)
         },
-        'SET_MISCELLANEOUS_MENU': (state, miscellaneousMenu) => {
-            const menuItem = { id: miscellaneousMenu.docId, ...miscellaneousMenu.docData }            
-            state.miscellaneousMenu.unshift(menuItem)
-        },
-        'UPDATE_MISCELLANEOUS_MENU': (state, menu) => {
+        'UPDATE_MISCELLANEOUS_MENU': (state, menuItem) => {
             state.miscellaneousMenu.forEach((element) => {
-                if (element.id == menu.id) {
-                    element.name = menu.name
-                    element.price = menu.price
-                    element.description = menu.description
+                if (element.id == menuItem.id) {
+                    element.name = menuItem.name
+                    element.price = menuItem.price
+                    element.quantity - menuItem.quantity
+                    element.description = menuItem.description
                 }
             })
         },
-        'DELETE_MISCELLANEOUS_MENU': (state, id) => {
-            var objectId = state.miscellaneousMenu.findIndex(element => element.id === id)
+        'DELETE_MISCELLANEOUS_MENU': (state, menuId) => {
+            var objectId = state.miscellaneousMenu.findIndex(element => element.id === menuId)
             state.miscellaneousMenu.splice(objectId, 1)
         },
-        'RESET_MISCELLANEOUS_MENU': (state) => {
-            state.miscellaneousMenu = []
-        }
     },
     actions: {
-        async fetchBreakfastMenu({ commit }) {
-            commit('RESET_BREAKFAST_MENU')
+        // add
+
+        async addBreakfastMenu({ commit }, breakfastMenuItemData) {
+            await breakfastMenuCollection.add({
+                name: breakfastMenuItemData.name,
+                price: breakfastMenuItemData.price,
+                description: breakfastMenuItemData.description
+            }).then((docRef) => {
+                var breakfastMenuItemId = docRef.id
+                commit('ADD_BREAKFAST_MENU', { breakfastMenuItemId, breakfastMenuItemData })
+            }).catch(function (error) {
+                console.error("Error adding document: ", error);
+            });
+
+        },
+        async addLunchMenu({ commit }, lunchMenuItemData) {
+            await lunchMenuCollection.add({
+                name: lunchMenuItemData.name,
+                price: lunchMenuItemData.price,
+                description: lunchMenuItemData.description
+            }).then((docRef) => {
+                var lunchMenuItemId = docRef.id
+                commit('ADD_LUNCH_MENU', { lunchMenuItemId, lunchMenuItemData })
+            }).catch(function (error) {
+                console.error("Error adding document: ", error);
+            });
+        },
+        async addDinnerMenu({ commit }, dinnerMenuItemData) {
+            await dinnerMenuCollection.add({
+                name: dinnerMenuItemData.name,
+                price: dinnerMenuItemData.price,
+                description: dinnerMenuItemData.description
+            }).then((docRef) => {
+                var dinnerMenuItemId = docRef.id
+                commit('ADD_DINNER_MENU', { dinnerMenuItemId, dinnerMenuItemData })
+            }).catch(function (error) {
+                console.error("Error adding document: ", error);
+            });
+        },
+        async addMiscellaneousMenu({ commit }, miscellaneousMenuItemData) {
+            await miscellaneousMenuCollection.add({
+                name: miscellaneousMenuItemData.name,
+                price: miscellaneousMenuItemData.price,
+                description: miscellaneousMenuItemData.description
+            }).then((docRef) => {
+                var miscellaneousMenuItemId = docRef.id
+                commit('ADD_MISCELLANEOUS_MENU', { miscellaneousMenuItemId, miscellaneousMenuItemData })
+            }).catch(function (error) {
+                console.error("Error adding document: ", error);
+            });
+        },
+
+        // fetch
+
+        async fetchBreakfastMenu({ commit, state }) {
+            state.breakfastMenu = []
             await breakfastMenuCollection.get().then((res) => {
                 res.docs.forEach((doc) => {
-                    var docId = doc.id
-                    var docData = doc.data()
-                    commit('SET_BREAKFAST_MENU', { docId, docData })
-                })          
+                    var breakfastMenuItemId = doc.id
+                    var breakfastMenuItemData = doc.data()
+                    commit('ADD_BREAKFAST_MENU', { breakfastMenuItemId, breakfastMenuItemData })
+                })
             }).catch((err) => {
                 console.log(err)
             })
         },
-        async fetchLunchMenu({ commit }) {
-            commit('RESET_LUNCH_MENU')
+        async fetchLunchMenu({ commit, state }) {
+            state.lunchMenu = []
             await lunchMenuCollection.get().then((res) => {
                 res.docs.forEach((doc) => {
-                    var docId = doc.id
-                    var docData = doc.data()
-                    commit('SET_LUNCH_MENU', { docId, docData })
-                })          
+                    var lunchMenuItemId = doc.id
+                    var lunchMenuItemData = doc.data()
+                    commit('ADD_LUNCH_MENU', { lunchMenuItemId, lunchMenuItemData })
+                })
             }).catch((err) => {
                 console.log(err)
             })
         },
-        async fetchDinnerMenu({ commit }) {
-            commit('RESET_DINNER_MENU')
+        async fetchDinnerMenu({ commit, state }) {
+            state.dinnerMenu = []
             await dinnerMenuCollection.get().then((res) => {
                 res.docs.forEach((doc) => {
-                    var docId = doc.id
-                    var docData = doc.data()
-                    commit('SET_DINNER_MENU', { docId, docData })
-                })          
+                    var dinnerMenuItemId = doc.id
+                    var dinnerMenuItemData = doc.data()
+                    commit('ADD_DINNER_MENU', { dinnerMenuItemId, dinnerMenuItemData })
+                })
             }).catch((err) => {
                 console.log(err)
             })
         },
-        async fetchMiscellaneousMenu({ commit }) {
-            commit('RESET_MISCELLANEOUS_MENU')
+        async fetchMiscellaneousMenu({ commit, state }) {
+            state.miscellaneousMenu = []
             await miscellaneousMenuCollection.get().then((res) => {
                 res.docs.forEach((doc) => {
-                    var docId = doc.id
-                    var docData = doc.data()
-                    commit('SET_MISCELLANEOUS_MENU', { docId, docData })
-                })          
+                    var miscellaneousMenuItemId = doc.id
+                    var miscellaneousMenuItemData = doc.data()
+                    commit('ADD_MISCELLANEOUS_MENU', { miscellaneousMenuItemId, miscellaneousMenuItemData })
+                })
             }).catch((err) => {
                 console.log(err)
             })

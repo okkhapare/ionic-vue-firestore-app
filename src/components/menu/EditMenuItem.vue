@@ -94,24 +94,14 @@ export default {
       "updateMiscellaneousMenu"
     ]),
     async editMenu() {
-      const successAlert = await this.$ionic.alertController.create({
-        header: "Success",
-        message: "Menu Item Successfully Updated",
-        buttons: ["OK"]
-      });
-
       if (this.categoryId == 1) {
         this.updateBreakfastMenu(this.menu);
-        return await successAlert.present();
       } else if (this.categoryId == 2) {
         this.updateLunchMenu(this.menu);
-        return await successAlert.present();
       } else if (this.categoryId == 3) {
         this.updateDinnerMenu(this.menu);
-        return await successAlert.present();
       } else if (this.categoryId == 4) {
         this.updateMiscellaneousMenu(this.menu);
-        return await successAlert.present();
       }
     }
   },

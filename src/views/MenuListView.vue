@@ -29,8 +29,8 @@
       </ion-list>
       <ion-list v-else>
         <ion-item v-for="i in 20" :key="i">
-          <ion-card>
-            <ion-skeleton-text :style="`width: ${(80 + Math.random () * Math.floor(240))}px;`"></ion-skeleton-text>
+          <ion-card :style="'width: ' + Math.random() * Math.floor(100) + '%;'">
+            <ion-skeleton-text></ion-skeleton-text>
           </ion-card>
         </ion-item>
       </ion-list>
