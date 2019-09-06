@@ -47,6 +47,16 @@
           </ion-item>
 
           <ion-item>
+            <ion-label position="stacked" color="primary">Due Amount</ion-label>
+            <ion-input
+              @input="customer.amt_due = $event.target.value"
+              :value="customer.amt_due"
+              name="amt_due"
+              type="number"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item>
             <ion-label position="stacked" color="primary">Note</ion-label>
             <ion-textarea
               @input="customer.note = $event.target.value"
@@ -70,24 +80,21 @@
 </template>
 
 <script>
-// import { mapActions } from 'vuex'
 import { customerCollection } from "../../firebase";
 
 export default {
   data() {
     return {
       customer: {}
-      // customerId: this.$route.params.customerId
     };
   },
   methods: {
-    // ...mapActions(['updateAccount']),
     editCustomer() {
-      // this.updateAccount(this.customer)
       customerCollection.doc(this.$route.params.customerId).update({
         name: this.customer.name,
         mobile: this.customer.mobile,
         company: this.customer.company,
+        amt_due: this.customer.amt_due,
         note: this.customer.note
       });
     }

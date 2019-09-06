@@ -29,7 +29,7 @@
       </ion-list>
       <ion-list v-else>
         <ion-item v-for="i in 20" :key="i">
-          <ion-card :style="'width: ' + Math.random() * Math.floor(100) + '%;'">
+          <ion-card :style="'width: ' + Math.random() * Math.floor(100) + '%;' + 'border-radius: 25px;'">
             <ion-skeleton-text></ion-skeleton-text>
           </ion-card>
         </ion-item>

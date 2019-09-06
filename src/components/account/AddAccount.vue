@@ -47,6 +47,16 @@
           </ion-item>
 
           <ion-item>
+            <ion-label position="stacked" color="primary">Due Amount</ion-label>
+            <ion-input
+              @input="customer.amt_due = $event.target.value"
+              :value="customer.amt_due"
+              name="amt_due"
+              type="number"
+            ></ion-input>
+          </ion-item>
+
+          <ion-item>
             <ion-label position="stacked" color="primary">Note</ion-label>
             <ion-textarea
               @input="customer.note = $event.target.value"
@@ -80,6 +90,7 @@ export default {
         name: this.customer.name,
         mobile: this.customer.mobile,
         company: this.customer.company,
+        amt_due: this.customer.amt_due,
         note: this.customer.note,
         accountTS: firebase.firestore.Timestamp.now()
       });
@@ -90,6 +101,7 @@ export default {
       name: "",
       mobile: 0,
       company: "",
+      amt_due: 0,
       note: ""
     };
   }

@@ -15,8 +15,8 @@
     </ion-header>
 
     <ion-content>
-      <ion-grid>
-        <ion-list>
+      <!-- <ion-grid> -->
+        <ion-list v-if="!this.isLoading">
           <ion-item
             v-for="customer in customerList"
             :key="customer.id"
@@ -27,7 +27,14 @@
             <ion-label>{{ customer.company }}</ion-label>
           </ion-item>
         </ion-list>
-      </ion-grid>
+        <ion-list v-else>
+          <ion-item v-for="i in 20" :key="i">
+            <ion-label>
+            <ion-skeleton-text :style="'width: ' + Math.random() * Math.floor(100) + '%;' + 'border-radius: 25px;'"></ion-skeleton-text>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      <!-- </ion-grid> -->
     </ion-content>
       <ion-fab vertical="bottom" horizontal="end" slot="fixed">
       <ion-fab-button @click="goToAddAccount()">
@@ -44,7 +51,8 @@ export default {
   name: "AccountListView",
   data() {
     return {
-      customerList: []
+      customerList: [],
+      isLoading: true
     };
   },
   methods: {
@@ -70,12 +78,14 @@ export default {
       });
     },
     getCustomerList() {
+      this.customerList = []
     customerCollection.get().then((res) => {
       res.docs.forEach((doc) => {
         var customerObject = { id: doc.id, ...doc.data() }
         this.customerList.unshift(customerObject)
       })
     })
+    this.isLoading = false
   },
   },
   activated() {
