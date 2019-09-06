@@ -23,7 +23,6 @@
               :value="menu.name"
               name="name"
               type="text"
-              required
             ></ion-input>
           </ion-item>
 
@@ -34,7 +33,6 @@
               :value="menu.price"
               name="price"
               type="number"
-              required
             ></ion-input>
           </ion-item>
 
@@ -45,7 +43,6 @@
               :value="menu.quantity"
               name="quantity"
               type="number"
-              required
             ></ion-input>
           </ion-item>
 

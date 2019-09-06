@@ -6,28 +6,4 @@
   </ion-app>
 </template>
 
-<script>
-import { mapActions } from 'vuex';
-
-export default {
-  methods: {
-    ...mapActions([
-      'fetchBreakfastMenu',
-      'fetchLunchMenu',
-      'fetchDinnerMenu',
-      'fetchMiscellaneousMenu'
-    ])
-  },
-  created() {
-    this.fetchBreakfastMenu();
-    this.fetchLunchMenu();
-    this.fetchDinnerMenu();
-    this.fetchMiscellaneousMenu();
-  }
-}
-</script>
-
-<style scoped>
-
-</style>
 

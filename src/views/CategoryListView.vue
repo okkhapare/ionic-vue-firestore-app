@@ -21,7 +21,10 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
+  name: "CategoryListView",
   data() {
     return {
       categories: [
@@ -31,6 +34,20 @@ export default {
         { categoryId: 4, name: "Miscellaneous", icon: "fas fa-cookie-bite" }
       ]
     };
+  },
+  methods: {
+    ...mapActions([
+      'fetchBreakfastMenu',
+      'fetchLunchMenu',
+      'fetchDinnerMenu',
+      'fetchMiscellaneousMenu'
+    ])
+  },
+  activated() {
+    this.fetchBreakfastMenu();
+    this.fetchLunchMenu();
+    this.fetchDinnerMenu();
+    this.fetchMiscellaneousMenu();
   }
 };
 </script>

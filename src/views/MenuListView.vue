@@ -48,6 +48,7 @@
 import { mapActions, mapGetters } from "vuex";
 
 export default {
+  name: 'MenuListView',
   data() {
     return {
       categoryId: this.$route.params.categoryId,

@@ -10,6 +10,7 @@ const firebaseConfig = {
   messagingSenderId: "798882780307",
   appId: "1:798882780307:web:bb09f94f1c22a87e"
 };
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
@@ -20,6 +21,8 @@ const breakfastMenuCollection = db.collection('breakfastMenu')
 const lunchMenuCollection = db.collection('lunchMenu')
 const dinnerMenuCollection = db.collection('dinnerMenu')
 const miscellaneousMenuCollection = db.collection('miscellaneousMenu')
+const customerCollection = db.collection('customer')
+const orderCollection = db.collection('order')
 
 export {
   db,
@@ -27,7 +30,9 @@ export {
   breakfastMenuCollection,
   lunchMenuCollection,
   dinnerMenuCollection,
-  miscellaneousMenuCollection
+  miscellaneousMenuCollection,
+  customerCollection,
+  orderCollection
 }
 
 
