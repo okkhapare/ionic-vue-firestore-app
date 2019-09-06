@@ -92,9 +92,9 @@ export default {
     editCustomer() {
       customerCollection.doc(this.$route.params.customerId).update({
         name: this.customer.name,
-        mobile: this.customer.mobile,
+        mobile: +this.customer.mobile,
         company: this.customer.company,
-        amt_due: this.customer.amt_due,
+        amt_due: +this.customer.amt_due,
         note: this.customer.note
       });
     }

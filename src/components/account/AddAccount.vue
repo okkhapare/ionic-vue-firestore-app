@@ -88,9 +88,9 @@ export default {
     addCustomer() {
       customerCollection.add({
         name: this.customer.name,
-        mobile: this.customer.mobile,
+        mobile: +this.customer.mobile,
         company: this.customer.company,
-        amt_due: this.customer.amt_due,
+        amt_due: +this.customer.amt_due,
         note: this.customer.note,
         accountTS: firebase.firestore.Timestamp.now()
       });

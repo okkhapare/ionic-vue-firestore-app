@@ -78,7 +78,7 @@ export default {
       });
     },
     getCustomerList() {
-      this.customerList = []
+    this.customerList = []
     customerCollection.get().then((res) => {
       res.docs.forEach((doc) => {
         var customerObject = { id: doc.id, ...doc.data() }
