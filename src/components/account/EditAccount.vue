@@ -68,7 +68,7 @@
           <ion-footer>
             <ion-button
               size="medium"
-              @click="editCustomer()"
+              @click="updateCustomer(customer)"
               color="light"
               expand="full"
             >Edit Account</ion-button>
@@ -81,33 +81,24 @@
 
 <script>
 import { customerCollection } from "../../firebase";
+import { mapActions } from 'vuex'
 
 export default {
+  name: "EditAccount",
+
   data() {
     return {
       customer: {}
     };
   },
   methods: {
-    editCustomer() {
-      customerCollection.doc(this.$route.params.customerId).update({
-        name: this.customer.name,
-        mobile: +this.customer.mobile,
-        company: this.customer.company,
-        amt_due: +this.customer.amt_due,
-        note: this.customer.note
-      });
-    }
+    ...mapActions(['updateCustomer'])
   },
   activated() {
-    customerCollection.get().then(res => {
-      res.docs.forEach(doc => {
-        if (doc.id == this.$route.params.customerId) {
-          var customerObject = { id: doc.id, ...doc.data() };
-          this.customer = customerObject;
-        }
-      });
-    });
+    customerCollection.doc(this.$route.params.customerId).get().then((docRef) => {
+      var customerObject = { id: docRef.id, ...docRef.data() }
+      this.customer = customerObject;
+    })
   }
 };
 </script>

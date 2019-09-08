@@ -15,28 +15,19 @@
     </ion-header>
 
     <ion-content>
-      <!-- <ion-grid> -->
-        <ion-list v-if="!this.isLoading">
-          <ion-item
-            v-for="customer in customerList"
-            :key="customer.id"
-            @click="goToAccountDetails(customer.id)"
-          >
-            <ion-label>{{ customer.name }}</ion-label>
-            <ion-label>{{ customer.mobile }}</ion-label>
-            <ion-label>{{ customer.company }}</ion-label>
-          </ion-item>
-        </ion-list>
-        <ion-list v-else>
-          <ion-item v-for="i in 20" :key="i">
-            <ion-label>
-            <ion-skeleton-text :style="'width: ' + Math.random() * Math.floor(100) + '%;' + 'border-radius: 25px;'"></ion-skeleton-text>
-            </ion-label>
-          </ion-item>
-        </ion-list>
-      <!-- </ion-grid> -->
+      <ion-list>
+        <ion-item
+          v-for="customer in getCustomerList"
+          :key="customer.id"
+          @click="goToAccountDetails(customer.id)"
+        >
+          <ion-label>{{ customer.name }}</ion-label>
+          <ion-label>{{ customer.company }}</ion-label>
+        </ion-item>
+      </ion-list>
     </ion-content>
-      <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
       <ion-fab-button @click="goToAddAccount()">
         <ion-icon name="add"></ion-icon>
       </ion-fab-button>
@@ -45,28 +36,32 @@
 </template>
 
 <script>
-import { customerCollection } from '../firebase'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: "AccountListView",
-  data() {
-    return {
-      customerList: [],
-      isLoading: true
-    };
+
+  computed: {
+    ...mapGetters(['getCustomerList'])
   },
+
   methods: {
+
+    ...mapActions(['fetchCustomerList']),
+
     goToAccountDetails(customerId) {
-        this.$router.push({
+      this.$router.push({
         name: "AccountDetails",
         params: { customerId: customerId }
       });
     },
+
     goToAddAccount() {
       this.$router.push({
         name: "AddAccount"
       });
     },
+
     handleInput(event) {
       const items = Array.from(document.querySelector("ion-list").children);
       const query = event.target.value.toLowerCase();
@@ -77,20 +72,13 @@ export default {
         });
       });
     },
-    getCustomerList() {
-    this.customerList = []
-    customerCollection.get().then((res) => {
-      res.docs.forEach((doc) => {
-        var customerObject = { id: doc.id, ...doc.data() }
-        this.customerList.unshift(customerObject)
-      })
-    })
-    this.isLoading = false
+
   },
+  
+  created() {
+    this.fetchCustomerList()
   },
-  activated() {
-    this.getCustomerList()
-  }
+
 };
 </script>
 

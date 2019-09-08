@@ -1,4 +1,4 @@
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 import 'firebase/firestore'
 
 const firebaseConfig = {
@@ -17,20 +17,12 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore()
 
 const usersCollection = db.collection('users')
-const breakfastMenuCollection = db.collection('breakfastMenu')
-const lunchMenuCollection = db.collection('lunchMenu')
-const dinnerMenuCollection = db.collection('dinnerMenu')
-const miscellaneousMenuCollection = db.collection('miscellaneousMenu')
 const customerCollection = db.collection('customer')
 const orderCollection = db.collection('order')
 
 export {
   db,
   usersCollection,
-  breakfastMenuCollection,
-  lunchMenuCollection,
-  dinnerMenuCollection,
-  miscellaneousMenuCollection,
   customerCollection,
   orderCollection
 }

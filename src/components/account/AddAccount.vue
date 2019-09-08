@@ -66,7 +66,7 @@
           </ion-item>
 
           <ion-footer>
-            <ion-button size="medium" @click="addCustomer()" color="light" expand="full">Add Account</ion-button>
+            <ion-button size="medium" @click="addCustomer(customer)" color="light" expand="full">Add Account</ion-button>
           </ion-footer>
         </ion-list>
       </form>
@@ -75,26 +75,18 @@
 </template>
 
 <script>
-import firebase from "firebase";
-import { customerCollection } from "../../firebase";
+import { mapActions } from 'vuex'
 
 export default {
+  name: "AddAccount",
+
   data() {
     return {
       customer: {}
     };
   },
   methods: {
-    addCustomer() {
-      customerCollection.add({
-        name: this.customer.name,
-        mobile: +this.customer.mobile,
-        company: this.customer.company,
-        amt_due: +this.customer.amt_due,
-        note: this.customer.note,
-        accountTS: firebase.firestore.Timestamp.now()
-      });
-    }
+    ...mapActions(['addCustomer'],)
   },
   activated() {
     this.customer = {
