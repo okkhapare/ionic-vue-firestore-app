@@ -2,27 +2,34 @@
   <div class="ion-page">
     <ion-header>
       <ion-toolbar>
-        <ion-title>Accounts</ion-title>
+        <ion-title text-center>Accounts</ion-title>
       </ion-toolbar>
-      <ion-toolbar>
-        <ion-searchbar
-          @ionInput="handleInput($event)"
-          showCancelButton="always"
-          debounce="0"
-          placeholder="Search Account Name"
-        ></ion-searchbar>
-      </ion-toolbar>
+      <ion-searchbar
+        @ionInput="handleInput($event)"
+        type="text"
+        showCancelButton="always"
+        animated="true"
+        placeholder="Search Account"
+      ></ion-searchbar>
     </ion-header>
 
     <ion-content>
-      <ion-list>
+      <ion-list lines padding-end>
         <ion-item
           v-for="customer in getCustomerList"
           :key="customer.id"
           @click="goToAccountDetails(customer.id)"
         >
-          <ion-label>{{ customer.name }}</ion-label>
-          <ion-label>{{ customer.company }}</ion-label>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-label>{{ customer.name }}</ion-label>
+              </ion-col>
+              <ion-col>
+                <ion-badge>{{ customer.company }}</ion-badge>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
         </ion-item>
       </ion-list>
     </ion-content>
@@ -36,18 +43,17 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "AccountListView",
 
   computed: {
-    ...mapGetters(['getCustomerList'])
+    ...mapGetters(["getCustomerList"])
   },
 
   methods: {
-
-    ...mapActions(['fetchCustomerList']),
+    ...mapActions(["fetchCustomerList"]),
 
     goToAccountDetails(customerId) {
       this.$router.push({
@@ -71,16 +77,37 @@ export default {
           item.style.display = shouldShow ? "block" : "none";
         });
       });
-    },
-
+    }
   },
-  
+
   created() {
-    this.fetchCustomerList()
-  },
-
+    this.fetchCustomerList();
+  }
 };
 </script>
 
 <style scoped>
+ion-col {
+  --ion-grid-column-padding: 16px;
+}
+
+ion-title, ion-label, ion-badge, ion-searchbar {
+  font-family: Montserrat !important; 
+}
+
+ion-title {
+  font-size: 22px !important; 
+  letter-spacing: 2px !important;
+}
+
+ion-label { 
+  font-size: 18px !important;
+  padding: 3px 8px !important;
+}
+
+ion-badge {
+  font-size: 16px !important; 
+  letter-spacing: 1px !important;
+  padding: 6px 8px !important;
+}
 </style>

@@ -2,22 +2,17 @@
   <div class="ion-page">
     <ion-header>
       <ion-toolbar>
-        <ion-button
-          color="primary"
-          expand="full"
-          size="large"
-          shape="round"
-          @click="$router.push({ name: 'AccountList' })"
-        >
-          <ion-icon name="arrow-back"></ion-icon>Back
+        <ion-button fill="clear" @click="$router.push({ name: 'AccountList' })">
+          <ion-icon name="arrow-back"></ion-icon>
         </ion-button>
       </ion-toolbar>
     </ion-header>
-    <ion-content>
+
+    <ion-content fullscreen padding>
       <form>
         <ion-list>
           <ion-item>
-            <ion-label position="stacked" color="primary">Name</ion-label>
+            <ion-label position="stacked" color="primary">Name *</ion-label>
             <ion-input
               @input="customer.name = $event.target.value"
               :value="customer.name"
@@ -37,7 +32,7 @@
           </ion-item>
 
           <ion-item>
-            <ion-label position="stacked" color="primary">Company</ion-label>
+            <ion-label position="stacked" color="primary">Company *</ion-label>
             <ion-input
               @input="customer.company = $event.target.value"
               :value="customer.company"
@@ -64,18 +59,15 @@
               name="note"
             ></ion-textarea>
           </ion-item>
-
-          <ion-footer>
-            <ion-button size="medium" @click="addCustomer(customer)" color="light" expand="full">Add Account</ion-button>
-          </ion-footer>
         </ion-list>
       </form>
     </ion-content>
+    <ion-button @click="addCustomer(customer)" size="medium" expand="full">Add Account</ion-button>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 
 export default {
   name: "AddAccount",
@@ -86,14 +78,14 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['addCustomer'],)
+    ...mapActions(["addCustomer"])
   },
   activated() {
     this.customer = {
       name: "",
-      mobile: 0,
+      mobile: "",
       company: "",
-      amt_due: 0,
+      amt_due: "",
       note: ""
     };
   }
@@ -101,4 +93,24 @@ export default {
 </script>
 
 <style scoped>
+ion-icon {
+  font-size: 18px;
+}
+
+ion-label {
+  font-family: Montserrat !important;
+  font-size: 18px !important;
+}
+
+ion-input,
+ion-textarea {
+  font-family: Montserrat !important;
+  font-size: 16px !important;
+  padding: 8px !important;
+}
+
+ion-button {
+  font-family: Montserrat !important;
+  font-size: 18px !important;
+}
 </style>

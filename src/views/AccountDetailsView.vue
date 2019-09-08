@@ -2,58 +2,101 @@
   <div class="ion-page">
     <ion-header>
       <ion-toolbar>
-        <ion-button
-          color="primary"
-          expand="full"
-          size="large"
-          shape="round"
-          @click="$router.push({ name: 'AccountList' })"
-        >
-          <ion-icon name="arrow-back"></ion-icon>Back
+        <ion-button fill="clear" @click="$router.push({ name: 'AccountList' })">
+          <ion-icon name="arrow-back"></ion-icon>
         </ion-button>
       </ion-toolbar>
     </ion-header>
 
-    <ion-card>
-      <ion-card-header>{{ this.selectedCustomerDetails.name }}</ion-card-header>
-      <ion-card-content>
-        Mobile No: {{ this.selectedCustomerDetails.mobile }}
-        <br />
-        Company: {{ this.selectedCustomerDetails.company }}
-        <br />
-        Note: {{ this.selectedCustomerDetails.note }}
-        <br />
-        Created at: {{ this.selectedCustomerDetails.accountTS | timeFormat }}
-        <br />
-        Due Amount: &#8377;{{ this.selectedCustomerDetails.amt_due }}
-        <br />
-        <ion-button @click="goToEditAccount($route.params.customerId)">Edit</ion-button>
-        <ion-button @click="deleteAccount($route.params.customerId)">Delete</ion-button>
-        <ion-button @click="goToBill($route.params.customerId)">Bill</ion-button>
-      </ion-card-content>
-    </ion-card>
+    <ion-content fullscreen>
+      <ion-card>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <b>{{ this.selectedCustomerDetails.name }}</b>
+            </ion-col>
+            <ion-col>Account Created At: {{ this.selectedCustomerDetails.accountTS | timeFormat }}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{ this.selectedCustomerDetails.mobile }}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{ this.selectedCustomerDetails.company }}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>Note: {{ this.selectedCustomerDetails.note }}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-chip>
+                <ion-icon name="cash"></ion-icon>
+                <ion-label>Amount Due</ion-label>
+              </ion-chip>
+              <ion-chip color="primary">&#8377; {{ this.selectedCustomerDetails.amt_due }}</ion-chip>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
 
-    <ion-card>
-      <ion-card-header>Order</ion-card-header>
-      <ion-card-content>{{ this.getTodaysDate() }}</ion-card-content>
-      <ion-card-content>
-        Amount: &#8377;
-        <ion-input
-          type="number"
-          name="amount_due"
-          @input="cost = $event.target.value" 
-          :value="cost"
-        ></ion-input>
-      </ion-card-content>
-      <ion-button size="medium" @click="addOrder()" color="light" expand="full">Add Order</ion-button>
-    </ion-card>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-chip @click="goToEditAccount($route.params.customerId)" color="primary">
+              <ion-icon name="create"></ion-icon>
+              <ion-label>Edit</ion-label>
+            </ion-chip>
+          </ion-col>
+          <ion-col>
+            <ion-chip @click="goToBill($route.params.customerId)" color="primary">
+              <ion-icon name="card"></ion-icon>
+              <ion-label>Bill</ion-label>
+            </ion-chip>
+          </ion-col>
+          <ion-col>
+            <ion-chip @click="deleteAccount($route.params.customerId)" color="danger">
+              <ion-icon name="trash"></ion-icon>
+              <ion-label>Delete</ion-label>
+            </ion-chip>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+      <ion-card>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <b>Order</b>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>{{ this.getTodaysDate() }}</ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-input
+                type="number"
+                name="amount_due"
+                placeholder="Enter Order Amount"
+                @input="cost = $event.target.value"
+                :value="cost"
+              ></ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-button @click="addOrder()" expand="full">&#8377; Add Order</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card>
+    </ion-content>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
-import firebase from 'firebase/app'
-import 'firebase/firestore'
+import { mapActions } from "vuex";
+import firebase from "firebase/app";
+import "firebase/firestore";
 import { db, customerCollection, orderCollection } from "../firebase";
 import moment from "moment";
 
@@ -62,7 +105,7 @@ export default {
   data() {
     return {
       selectedCustomerDetails: {},
-      cost: 0,
+      cost: ""
     };
   },
   filters: {
@@ -109,7 +152,6 @@ export default {
       });
     },
     deleteAccount(customerId) {
-      this.deleteCustomer(customerId);
       orderCollection.get().then(res => {
         res.docs.forEach(order => {
           if (order.custId == customerId) {
@@ -117,6 +159,7 @@ export default {
           }
         });
       });
+      this.deleteCustomer(customerId);
       this.$router.push({ name: "AccountList" });
     },
     getCustomer(customerId) {
@@ -137,10 +180,34 @@ export default {
   },
   activated() {
     this.getCustomer(this.$route.params.customerId);
-    this.cost = 0;
+    this.cost = "";
   }
 };
 </script>
 
 <style scoped>
+ion-col {
+  font-family: Montserrat !important;
+}
+
+b {
+  font-family: Montserrat !important;
+  font-size: 18px !important;
+}
+
+ion-icon {
+  font-size: 18px !important;
+}
+
+ion-label,
+ion-chip,
+ion-input,
+ion-button {
+  font-family: Montserrat !important;
+  font-size: 16px !important;
+}
+
+ion-chip {
+  padding: 5px 15px;
+}
 </style>

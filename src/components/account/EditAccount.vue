@@ -2,18 +2,12 @@
   <div class="ion-page">
     <ion-header>
       <ion-toolbar>
-        <ion-button
-          color="primary"
-          expand="full"
-          size="large"
-          shape="round"
-          @click="$router.push({ name: 'AccountDetails' })"
-        >
-          <ion-icon name="arrow-back"></ion-icon>Back
+        <ion-button fill="clear" @click="$router.push({ name: 'AccountDetails' })">
+          <ion-icon name="arrow-back"></ion-icon>
         </ion-button>
       </ion-toolbar>
     </ion-header>
-    <ion-content>
+    <ion-content fullscreen padding>
       <form>
         <ion-list>
           <ion-item>
@@ -64,24 +58,16 @@
               name="note"
             ></ion-textarea>
           </ion-item>
-
-          <ion-footer>
-            <ion-button
-              size="medium"
-              @click="updateCustomer(customer)"
-              color="light"
-              expand="full"
-            >Edit Account</ion-button>
-          </ion-footer>
         </ion-list>
       </form>
     </ion-content>
+    <ion-button @click="updateCustomer(customer)" expand="full">Edit Account</ion-button>
   </div>
 </template>
 
 <script>
 import { customerCollection } from "../../firebase";
-import { mapActions } from 'vuex'
+import { mapActions } from "vuex";
 
 export default {
   name: "EditAccount",
@@ -92,16 +78,39 @@ export default {
     };
   },
   methods: {
-    ...mapActions(['updateCustomer'])
+    ...mapActions(["updateCustomer"])
   },
   activated() {
-    customerCollection.doc(this.$route.params.customerId).get().then((docRef) => {
-      var customerObject = { id: docRef.id, ...docRef.data() }
-      this.customer = customerObject;
-    })
+    customerCollection
+      .doc(this.$route.params.customerId)
+      .get()
+      .then(docRef => {
+        var customerObject = { id: docRef.id, ...docRef.data() };
+        this.customer = customerObject;
+      });
   }
 };
 </script>
 
 <style scoped>
+ion-icon {
+  font-size: 18px;
+}
+
+ion-label {
+  font-family: Montserrat !important;
+  font-size: 18px !important;
+}
+
+ion-input,
+ion-textarea {
+  font-family: Montserrat !important;
+  font-size: 16px !important;
+  padding: 8px !important;
+}
+
+ion-button {
+  font-family: Montserrat !important;
+  font-size: 18px !important;
+}
 </style>

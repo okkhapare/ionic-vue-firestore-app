@@ -1,5 +1,12 @@
 <template>
   <div class="ion-page">
+    <ion-header>
+      <ion-toolbar>
+        <ion-button fill="clear" @click="$router.push({ name: 'Bill' })">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-toolbar>
+    </ion-header>
     <ion-content>
       <ion-grid>
         <ion-row>
@@ -15,7 +22,7 @@
         </ion-row>
       </ion-grid>
     </ion-content>
-    <ion-button @click="clearBill()">Clear Bill</ion-button>
+    <ion-button @click="clearBill()">&#8377; Clear Bill</ion-button>
   </div>
 </template>
 
@@ -56,3 +63,29 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+ion-label {
+  font-family: Montserrat !important;
+  font-size: 18px !important;
+}
+
+ion-input {
+  font-family: Montserrat !important;
+  font-size: 16px !important; 
+  border: 1px solid !important;
+  border-radius: 25px !important; 
+  margin-top: 10px !important;
+  padding: 5px 10px !important;
+}
+
+ion-input:hover {
+  border: 1px solid green !important;
+}
+
+ion-button {
+  font-family: Montserrat !important;
+  font-size: 16px !important;
+}
+
+</style>
