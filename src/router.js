@@ -5,6 +5,7 @@ import AddAccount from './components/account/AddAccount'
 import EditAccount from './components/account/EditAccount'
 import AccountDetailsView from './views/AccountDetailsView'
 import Bill from './views/Bill'
+import ClearBill from './views/ClearBill'
 
 Vue.use(Router)
 
@@ -16,6 +17,7 @@ export default new Router({
     { path: '/account-list/add-account', component: AddAccount, name: 'AddAccount' },  
     { path: '/account-list/edit-account/:customerId', component: EditAccount, name: 'EditAccount' },    
     { path: '/account-list/account/:customerId', component: AccountDetailsView, name: 'AccountDetails' },
-    { path: '/account-list/account/bill/:customerId', component: Bill, name: 'Bill' }
+    { path: '/account-list/account/bill/:customerId', component: Bill, name: 'Bill' },
+    { path: '/account-list/account/bill/clear-bill/:customerId', component: ClearBill, name: 'ClearBill' }
   ]
 })
