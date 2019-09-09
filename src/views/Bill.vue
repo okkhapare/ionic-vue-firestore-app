@@ -91,13 +91,13 @@ ion-col {
 }
 
 ion-icon {
-  font-size: 18px !important;
+  font-size: 16px !important;
 }
 
 #clear-button {
   font-family: Montserrat !important;
   font-size: 18px !important;
-  border-top: 1px solid rgb(105, 105, 105) !important;
+  border-top: 1px solid #737373 !important;
   margin: 0px 20px 20px !important;
   padding-top: 15px !important;
 }

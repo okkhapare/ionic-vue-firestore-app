@@ -61,7 +61,7 @@
         </ion-list>
       </form>
     </ion-content>
-    <ion-button id="edit-button" @click="updateCustomer(customer)" expand="full" fill="clear">Edit Account</ion-button>
+    <ion-button id="edit-button" @click="updateCustomerAlert()" expand="full" fill="clear">Edit Account</ion-button>
   </div>
 </template>
 
@@ -78,7 +78,35 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["updateCustomer"])
+    ...mapActions(["updateCustomer"]),
+    updateCustomerAlert() {
+      if (this.customer.name == '' && this.customer.company == '') {
+        return this.$ionic.alertController
+          .create({
+            header: 'Alert',
+            message: 'Please fill the fields with * mark',
+            buttons: ['OK'],
+          })
+          .then(a => a.present())
+      } else if (this.customer.name == '' || this.customer.company == '') {
+        return this.$ionic.alertController
+          .create({
+            header: 'Alert',
+            message: 'Please fill the fields with * mark',
+            buttons: ['OK'],
+          })
+          .then(a => a.present())
+      } else {
+        this.updateCustomer(this.customer)
+      return this.$ionic.alertController
+          .create({
+            header: 'Success',
+            message: 'Account successfully edited!',
+            buttons: ['OK'],
+          })
+          .then(a => a.present())
+      }      
+    }
   },
   activated() {
     customerCollection
@@ -94,7 +122,7 @@ export default {
 
 <style scoped>
 ion-icon {
-  font-size: 18px;
+  font-size: 16px !important;
 }
 
 ion-label {
@@ -107,6 +135,7 @@ ion-textarea {
   font-family: Montserrat !important;
   font-size: 16px !important;
   padding: 8px !important;
+  color: #737373 !important;
 }
 
 #edit-button {

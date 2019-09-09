@@ -19,10 +19,10 @@ export default new Vuex.Store({
             state.customers.forEach((customer) => {
                 if (customer.id == customerDetails.id) {
                     customer.name = customerDetails.name,
-                    customer.mobile = customerDetails.mobile,
-                    customer.company = customerDetails.company,
-                    customer.amt_due = customerDetails.amt_due,
-                    customer.note = customerDetails.note
+                        customer.mobile = customerDetails.mobile,
+                        customer.company = customerDetails.company,
+                        customer.amt_due = customerDetails.amt_due,
+                        customer.note = customerDetails.note
                 }
             })
         },
@@ -62,8 +62,8 @@ export default new Vuex.Store({
                 company: customerDetails.company,
                 amt_due: +customerDetails.amt_due,
                 note: customerDetails.note
-              });
-              commit('UPDATE_CUSTOMER', customerDetails)
+            });
+            commit('UPDATE_CUSTOMER', customerDetails)
         },
         async deleteCustomer({ commit }, customerId) {
             await customerCollection.doc(customerId).delete()

@@ -26,7 +26,7 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-              <ion-button id="clear-button" fill="clear" expand="full" @click="clearBill()">Clear Bill</ion-button>
+        <ion-button id="clear-button" fill="clear" expand="full" @click="clearBill()">Clear Bill</ion-button>
       </ion-card>
     </ion-content>
   </div>
@@ -40,20 +40,48 @@ export default {
 
   data() {
     return {
-      amt_due: 0
+      amt_due: 0,
+      temp_amt_due: 0
     };
   },
 
   methods: {
     clearBill() {
-      const docRef = customerCollection.doc(this.$route.params.customerId);
-      db.runTransaction(transaction => {
-        return transaction.get(docRef).then(doc => {
-          // changing value at server
-          var newAmtDue = +doc.data().amt_due - +this.amt_due;
-          transaction.update(docRef, { amt_due: newAmtDue });
+      if (this.temp_amt_due < this.amt_due) {
+        return this.$ionic.alertController
+          .create({
+            header: "Alert",
+            message: "The amount cannot be more than the due amount!",
+            buttons: ["OK"]
+          })
+          .then(a => a.present());
+      } else if (this.amt_due == 0) {
+        return this.$ionic.alertController
+          .create({
+            header: "Alert",
+            message: "Amount cannot be zero!",
+            buttons: ["OK"]
+          })
+          .then(a => a.present());
+      } else {
+        const docRef = customerCollection.doc(this.$route.params.customerId);
+        db.runTransaction(transaction => {
+          return transaction.get(docRef).then(doc => {
+            // changing value at server
+            var newAmtDue = +doc.data().amt_due - +this.amt_due;
+            transaction.update(docRef, { amt_due: newAmtDue });
+            this.amt_due = this.temp_amt_due - this.amt_due;
+          });
         });
-      });
+
+        return this.$ionic.alertController
+          .create({
+            header: "Success",
+            message: "Amount successfully paid!",
+            buttons: ["OK"]
+          })
+          .then(a => a.present());
+      }
     }
   },
 
@@ -62,6 +90,7 @@ export default {
       res.docs.forEach(doc => {
         if (doc.id == this.$route.params.customerId) {
           this.amt_due = doc.data().amt_due;
+          this.temp_amt_due = doc.data().amt_due;
         }
       });
     });
@@ -83,13 +112,13 @@ ion-input {
 }
 
 ion-icon {
-  font-size: 18px !important;
+  font-size: 16px !important;
 }
 
 #clear-button {
   font-family: Montserrat !important;
   font-size: 18px !important;
-  border-top: 1px solid rgb(105, 105, 105) !important;
+  border-top: 1px solid #737373 !important;
   margin: 0px 20px 20px !important;
   padding-top: 15px !important;
 }

@@ -83,10 +83,15 @@
             </ion-col>
           </ion-row>
           <!-- <ion-row>
-            <ion-col> -->
-              <ion-button id="add-order" @click="addOrder()" expand="full" fill="clear">&#8377; Add Order</ion-button>
-            <!-- </ion-col>
-          </ion-row> -->
+          <ion-col>-->
+          <ion-button
+            id="add-order"
+            @click="addOrder()"
+            expand="full"
+            fill="clear"
+          >&#8377; Add Order</ion-button>
+          <!-- </ion-col>
+          </ion-row>-->
         </ion-grid>
       </ion-card>
     </ion-content>
@@ -133,34 +138,72 @@ export default {
       });
     },
     addOrder() {
-      const docRef = customerCollection.doc(this.$route.params.customerId);
-      db.runTransaction(transaction => {
-        return transaction.get(docRef).then(doc => {
-          // changing value locally
-          this.selectedCustomerDetails.amt_due += +this.cost;
-          // changing value at server
-          var newAmtDue = +doc.data().amt_due + +this.cost;
-          transaction.update(docRef, { amt_due: newAmtDue });
+      if (this.cost == "" || this.cost == 0) {
+        return this.$ionic.alertController
+          .create({
+            header: "Alert",
+            message: "Please enter valid amount!",
+            buttons: ["OK"]
+          })
+          .then(a => a.present());
+      } else {
+        const docRef = customerCollection.doc(this.$route.params.customerId);
+        db.runTransaction(transaction => {
+          return transaction.get(docRef).then(doc => {
+            // changing value locally
+            this.selectedCustomerDetails.amt_due += +this.cost;
+            // changing value at server
+            var newAmtDue = +doc.data().amt_due + +this.cost;
+            transaction.update(docRef, { amt_due: newAmtDue });
+          });
         });
-      });
 
-      // add order
-      orderCollection.add({
-        custId: this.$route.params.customerId,
-        orderTS: firebase.firestore.Timestamp.now(),
-        price: +this.cost
-      });
+        // add order
+        orderCollection.add({
+          custId: this.$route.params.customerId,
+          orderTS: firebase.firestore.Timestamp.now(),
+          price: +this.cost
+        });
+
+        return this.$ionic.alertController
+          .create({
+            header: 'Success',
+            message: 'Order placed successfully!',
+            buttons: ['OK'],
+          })
+          .then(a => a.present())
+      }
     },
     deleteAccount(customerId) {
-      orderCollection.get().then(res => {
-        res.docs.forEach(order => {
-          if (order.custId == customerId) {
-            order.delete();
-          }
-        });
-      });
-      this.deleteCustomer(customerId);
-      this.$router.push({ name: "AccountList" });
+      return this.$ionic.alertController
+        .create({
+          header: "Alert",
+          message: "Are you sure you want to delete this account?",
+          buttons: [
+            {
+              text: "Cancel",
+              role: "cancel"
+            },
+            {
+              text: "Yes",
+              handler: () => {
+                // delete from server
+                orderCollection.get().then(res => {
+                  res.docs.forEach(order => {
+                    if (order.custId == customerId) {
+                      order.delete();
+                    }
+                  });
+                });
+                // delete from local
+                this.deleteCustomer(customerId);
+                // push to account list
+                this.$router.push({ name: "AccountList" });
+              }
+            }
+          ]
+        })
+        .then(a => a.present());
     },
     getCustomer(customerId) {
       customerCollection
@@ -186,8 +229,13 @@ export default {
 </script>
 
 <style scoped>
+ion-card {
+  padding: 5px;
+}
+
 ion-col {
   font-family: Montserrat !important;
+  padding: 10px 15px;
 }
 
 b {
@@ -196,7 +244,7 @@ b {
 }
 
 ion-icon {
-  font-size: 18px !important;
+  font-size: 16px !important;
 }
 
 ion-label,
@@ -204,10 +252,6 @@ ion-chip,
 ion-input {
   font-family: Montserrat !important;
   font-size: 16px !important;
-}
-
-ion-toolbar > ion-button {
-  font-size: 16px;
 }
 
 ion-input {
@@ -220,9 +264,9 @@ ion-input {
 #add-order {
   font-family: Montserrat !important;
   font-size: 18px !important;
-  border-top: 1px solid rgb(105, 105, 105) !important;
+  border-top: 1px solid #737373 !important;
   margin: 0px 5px 10px !important;
-  padding-top: 10px !important;
+  padding-top: 15px !important;
 }
 
 ion-chip {

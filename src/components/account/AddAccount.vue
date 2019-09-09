@@ -62,7 +62,7 @@
         </ion-list>
       </form>
     </ion-content>
-    <ion-button id="add-button" @click="addCustomer(customer)" expand="full" fill="clear">Add Account</ion-button>
+    <ion-button id="add-button" @click="addCustomerAlert()" expand="full" fill="clear">Add Account</ion-button>
   </div>
 </template>
 
@@ -78,7 +78,35 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["addCustomer"])
+    ...mapActions(["addCustomer"]),
+    addCustomerAlert() {
+      if (this.customer.name == '' && this.customer.company == '') {
+        return this.$ionic.alertController
+          .create({
+            header: 'Alert',
+            message: 'Please fill the fields with * mark',
+            buttons: ['OK'],
+          })
+          .then(a => a.present())
+      } else if (this.customer.name == '' || this.customer.company == '') {
+        return this.$ionic.alertController
+          .create({
+            header: 'Alert',
+            message: 'Please fill the fields with * mark',
+            buttons: ['OK'],
+          })
+          .then(a => a.present())
+      } else {
+        this.addCustomer(this.customer)
+        return this.$ionic.alertController
+          .create({
+            header: 'Success',
+            message: 'Account successfully added!',
+            buttons: ['OK'],
+          })
+          .then(a => a.present())
+      }
+    }
   },
   activated() {
     this.customer = {
@@ -94,7 +122,7 @@ export default {
 
 <style scoped>
 ion-icon {
-  font-size: 16px;
+  font-size: 16px !important;
 }
 
 ion-label {
@@ -107,6 +135,7 @@ ion-textarea {
   font-family: Montserrat !important;
   font-size: 16px !important;
   padding: 8px !important;
+  color: #737373 !important;
 }
 
 #add-button {

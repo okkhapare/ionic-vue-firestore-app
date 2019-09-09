@@ -2,7 +2,7 @@
   <div class="ion-page">
     <ion-header>
       <ion-toolbar>
-        <ion-title text-center>Accounts</ion-title>
+        <ion-title text-center><b>Accounts</b></ion-title>
       </ion-toolbar>
       <ion-searchbar
         @ionInput="handleInput($event)"
@@ -23,7 +23,7 @@
           <ion-grid>
             <ion-row>
               <ion-col>
-                <ion-label>{{ customer.name }}</ion-label>
+                <ion-label><b>{{ customer.name }}</b></ion-label>
               </ion-col>
               <ion-col>
                 <ion-badge>{{ customer.company }}</ion-badge>
@@ -87,6 +87,10 @@ export default {
 </script>
 
 <style scoped>
+b {
+  color: #737373 !important;
+}
+
 ion-col {
   --ion-grid-column-padding: 16px;
 }
