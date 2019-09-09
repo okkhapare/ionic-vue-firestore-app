@@ -40,19 +40,19 @@
 
       <ion-grid>
         <ion-row>
-          <ion-col>
+          <ion-col text-center>
             <ion-chip @click="goToEditAccount($route.params.customerId)" color="primary">
               <ion-icon name="create"></ion-icon>
               <ion-label>Edit</ion-label>
             </ion-chip>
           </ion-col>
-          <ion-col>
+          <ion-col text-center>
             <ion-chip @click="goToBill($route.params.customerId)" color="primary">
               <ion-icon name="card"></ion-icon>
               <ion-label>Bill</ion-label>
             </ion-chip>
           </ion-col>
-          <ion-col>
+          <ion-col text-center>
             <ion-chip @click="deleteAccount($route.params.customerId)" color="danger">
               <ion-icon name="trash"></ion-icon>
               <ion-label>Delete</ion-label>
@@ -82,11 +82,11 @@
               ></ion-input>
             </ion-col>
           </ion-row>
-          <ion-row>
-            <ion-col>
-              <ion-button @click="addOrder()" expand="full">&#8377; Add Order</ion-button>
-            </ion-col>
-          </ion-row>
+          <!-- <ion-row>
+            <ion-col> -->
+              <ion-button id="add-order" @click="addOrder()" expand="full" fill="clear">&#8377; Add Order</ion-button>
+            <!-- </ion-col>
+          </ion-row> -->
         </ion-grid>
       </ion-card>
     </ion-content>
@@ -201,13 +201,31 @@ ion-icon {
 
 ion-label,
 ion-chip,
-ion-input,
-ion-button {
+ion-input {
   font-family: Montserrat !important;
   font-size: 16px !important;
 }
 
+ion-toolbar > ion-button {
+  font-size: 16px;
+}
+
+ion-input {
+  font-family: Montserrat !important;
+  font-size: 16px !important;
+  padding: 0px 10px !important;
+  border: none !important;
+}
+
+#add-order {
+  font-family: Montserrat !important;
+  font-size: 18px !important;
+  border-top: 1px solid rgb(105, 105, 105) !important;
+  margin: 0px 5px 10px !important;
+  padding-top: 10px !important;
+}
+
 ion-chip {
-  padding: 5px 15px;
+  padding: 5px 15px !important;
 }
 </style>

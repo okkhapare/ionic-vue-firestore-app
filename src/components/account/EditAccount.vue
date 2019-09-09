@@ -61,7 +61,7 @@
         </ion-list>
       </form>
     </ion-content>
-    <ion-button @click="updateCustomer(customer)" expand="full">Edit Account</ion-button>
+    <ion-button id="edit-button" @click="updateCustomer(customer)" expand="full" fill="clear">Edit Account</ion-button>
   </div>
 </template>
 
@@ -109,8 +109,11 @@ ion-textarea {
   padding: 8px !important;
 }
 
-ion-button {
+#edit-button {
   font-family: Montserrat !important;
   font-size: 18px !important;
+  border-top: 1px solid rgb(105, 105, 105) !important;
+  margin: 0px 20px 20px !important;
+  padding-top: 15px !important;
 }
 </style>

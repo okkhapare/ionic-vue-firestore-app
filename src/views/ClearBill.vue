@@ -8,27 +8,32 @@
       </ion-toolbar>
     </ion-header>
     <ion-content>
-      <ion-grid>
-        <ion-row>
-          <ion-col>
-            <ion-label>Bill Amount</ion-label>
-            <ion-input
-              type="number"
-              name="bill_amt"
-              @input="amt_due = $event.target.value"
-              :value="amt_due"
-            ></ion-input>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+      <ion-card>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+              <ion-card-header>Bill Amount</ion-card-header>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <ion-input
+                type="number"
+                name="bill_amt"
+                @input="amt_due = $event.target.value"
+                :value="amt_due"
+              ></ion-input>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+              <ion-button id="clear-button" fill="clear" expand="full" @click="clearBill()">Clear Bill</ion-button>
+      </ion-card>
     </ion-content>
-    <ion-button @click="clearBill()">&#8377; Clear Bill</ion-button>
   </div>
 </template>
 
 <script>
 import { db, customerCollection } from "../firebase";
-
 
 export default {
   name: "ClearBill",
@@ -65,27 +70,27 @@ export default {
 </script>
 
 <style scoped>
-ion-label {
+ion-card-header {
   font-family: Montserrat !important;
-  font-size: 18px !important;
+  font-size: 18px;
 }
 
 ion-input {
   font-family: Montserrat !important;
-  font-size: 16px !important; 
-  border: 1px solid !important;
-  border-radius: 25px !important; 
-  margin-top: 10px !important;
-  padding: 5px 10px !important;
-}
-
-ion-input:hover {
-  border: 1px solid green !important;
-}
-
-ion-button {
-  font-family: Montserrat !important;
   font-size: 16px !important;
+  padding: 2px 20px !important;
+  border: 0 !important;
 }
 
+ion-icon {
+  font-size: 18px !important;
+}
+
+#clear-button {
+  font-family: Montserrat !important;
+  font-size: 18px !important;
+  border-top: 1px solid rgb(105, 105, 105) !important;
+  margin: 0px 20px 20px !important;
+  padding-top: 15px !important;
+}
 </style>

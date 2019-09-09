@@ -27,7 +27,7 @@
         </ion-row>
       </ion-grid>
     </ion-content>
-    <ion-button @click="goToClearBill($route.params.customerId)">&#8377; Clear Bill</ion-button>
+    <ion-button id="clear-button" @click="goToClearBill($route.params.customerId)" expand="full" fill="clear">&#8377; Clear Bill</ion-button>
   </div>
 </template>
 
@@ -90,8 +90,15 @@ ion-col {
   font-family: Montserrat !important;
 }
 
-ion-button {
+ion-icon {
+  font-size: 18px !important;
+}
+
+#clear-button {
   font-family: Montserrat !important;
-  font-size: 16px;
+  font-size: 18px !important;
+  border-top: 1px solid rgb(105, 105, 105) !important;
+  margin: 0px 20px 20px !important;
+  padding-top: 15px !important;
 }
 </style>

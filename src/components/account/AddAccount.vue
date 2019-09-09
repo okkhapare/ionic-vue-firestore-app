@@ -62,7 +62,7 @@
         </ion-list>
       </form>
     </ion-content>
-    <ion-button @click="addCustomer(customer)" size="medium" expand="full">Add Account</ion-button>
+    <ion-button id="add-button" @click="addCustomer(customer)" expand="full" fill="clear">Add Account</ion-button>
   </div>
 </template>
 
@@ -94,7 +94,7 @@ export default {
 
 <style scoped>
 ion-icon {
-  font-size: 18px;
+  font-size: 16px;
 }
 
 ion-label {
@@ -109,8 +109,11 @@ ion-textarea {
   padding: 8px !important;
 }
 
-ion-button {
+#add-button {
   font-family: Montserrat !important;
   font-size: 18px !important;
+  border-top: 1px solid rgb(105, 105, 105) !important;
+  margin: 0px 20px 20px !important;
+  padding-top: 15px !important;
 }
 </style>
