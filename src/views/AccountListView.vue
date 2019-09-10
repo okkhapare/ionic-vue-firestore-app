@@ -91,27 +91,21 @@ b {
   color: #737373 !important;
 }
 
-ion-col {
-  --ion-grid-column-padding: 16px;
-}
-
 ion-title, ion-label, ion-badge, ion-searchbar {
   font-family: Montserrat !important; 
 }
 
 ion-title {
-  font-size: 22px !important; 
+  font-size: 18px !important; 
   letter-spacing: 2px !important;
 }
 
 ion-label { 
-  font-size: 18px !important;
-  padding: 3px 8px !important;
+  font-size: 16px !important;
 }
 
 ion-badge {
-  font-size: 16px !important; 
+  font-size: 14px !important; 
   letter-spacing: 1px !important;
-  padding: 6px 8px !important;
 }
 </style>

@@ -15,7 +15,7 @@
             <ion-col>
               <b>{{ this.selectedCustomerDetails.name }}</b>
             </ion-col>
-            <ion-col>Account Created At: {{ this.selectedCustomerDetails.accountTS | timeFormat }}</ion-col>
+            <ion-col text-center>Account Created At: {{ this.selectedCustomerDetails.accountTS | timeFormat }}</ion-col>
           </ion-row>
           <ion-row>
             <ion-col>{{ this.selectedCustomerDetails.mobile }}</ion-col>
@@ -235,12 +235,12 @@ ion-card {
 
 ion-col {
   font-family: Montserrat !important;
-  padding: 10px 15px;
+  padding: 7px 15px;
 }
 
 b {
   font-family: Montserrat !important;
-  font-size: 18px !important;
+  font-size: 16px !important;
 }
 
 ion-icon {
@@ -263,13 +263,13 @@ ion-input {
 
 #add-order {
   font-family: Montserrat !important;
-  font-size: 18px !important;
+  font-size: 16px !important;
   border-top: 1px solid #737373 !important;
-  margin: 0px 5px 10px !important;
-  padding-top: 15px !important;
+  margin: 5px 15px !important;
+  padding-top: 5px !important;
 }
 
 ion-chip {
-  padding: 5px 15px !important;
+  padding: 5px 12px !important;
 }
 </style>

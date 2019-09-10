@@ -127,7 +127,7 @@ ion-icon {
 
 ion-label {
   font-family: Montserrat !important;
-  font-size: 18px !important;
+  font-size: 16px !important;
 }
 
 ion-input,
@@ -140,9 +140,6 @@ ion-textarea {
 
 #add-button {
   font-family: Montserrat !important;
-  font-size: 18px !important;
-  border-top: 1px solid rgb(105, 105, 105) !important;
-  margin: 0px 20px 20px !important;
-  padding-top: 15px !important;
+  font-size: 16px !important;
 }
 </style>

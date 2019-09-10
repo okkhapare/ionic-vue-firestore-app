@@ -22,8 +22,8 @@
     <ion-content>
       <ion-grid>
         <ion-row v-for="order in orderList" :key="order.id" text-center>
-          <ion-col>{{ order.orderTS.seconds | timeFormat }}</ion-col>
-          <ion-col>{{ order.price }}</ion-col>
+          <ion-col class="order">{{ order.orderTS.seconds | timeFormat }}</ion-col>
+          <ion-col class="order">{{ order.price }}</ion-col>
         </ion-row>
       </ion-grid>
     </ion-content>
@@ -83,7 +83,11 @@ export default {
 
 <style scoped>
 b {
-  font-size: 18px;
+  font-size: 16px;
+}
+
+.order {
+  font-size: 14px;
 }
 
 ion-col {
@@ -96,9 +100,9 @@ ion-icon {
 
 #clear-button {
   font-family: Montserrat !important;
-  font-size: 18px !important;
-  border-top: 1px solid #737373 !important;
+  font-size: 16px !important;
+  /* border-top: 1px solid #737373 !important;
   margin: 0px 20px 20px !important;
-  padding-top: 15px !important;
+  padding-top: 15px !important; */
 }
 </style>
