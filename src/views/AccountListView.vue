@@ -2,7 +2,16 @@
   <div class="ion-page">
     <ion-header>
       <ion-toolbar>
-        <ion-title text-center><b>Accounts</b></ion-title>
+        <ion-grid>
+          <ion-row justify-content-around>
+            <ion-col size="10">
+              <b id="title">Accounts</b>
+            </ion-col>
+            <ion-col size="auto">
+              <ion-icon id="logout" name="log-out" @click="logout"></ion-icon>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-toolbar>
       <ion-searchbar
         @ionInput="handleInput($event)"
@@ -13,6 +22,7 @@
       ></ion-searchbar>
     </ion-header>
 
+  <transition name="fade">
     <ion-content>
       <ion-list lines padding-end>
         <ion-item
@@ -23,7 +33,9 @@
           <ion-grid>
             <ion-row>
               <ion-col>
-                <ion-label><b>{{ customer.name }}</b></ion-label>
+                <ion-label>
+                  <b>{{ customer.name }}</b>
+                </ion-label>
               </ion-col>
               <ion-col>
                 <ion-badge>{{ customer.company }}</ion-badge>
@@ -33,6 +45,7 @@
         </ion-item>
       </ion-list>
     </ion-content>
+     </transition>
 
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
       <ion-fab-button @click="goToAddAccount()">
@@ -44,9 +57,17 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import firebase from "firebase";
 
 export default {
   name: "AccountListView",
+
+  data() {
+    return {
+      isLoggedIn: false,
+      currentUserId: false
+    };
+  },
 
   computed: {
     ...mapGetters(["getCustomerList"])
@@ -77,10 +98,58 @@ export default {
           item.style.display = shouldShow ? "block" : "none";
         });
       });
+    },
+
+    logout() {
+      return this.$ionic.alertController
+        .create({
+          header: "Alert",
+          message: "Are you sure you want to logout?",
+          buttons: [
+            {
+              text: "Cancel",
+              role: "cancel"
+            },
+            {
+              text: "Yes",
+              handler: () => {
+                firebase
+                  .auth()
+                  .signOut()
+                  .then(
+                    () => {
+                      this.$router.go({ path: this.$router.path });
+                    },
+                    err => console.log(err)
+                  );
+              }
+            }
+          ]
+        })
+        .then(a => a.present());
+    },
+
+    presentLoading() {
+      return this.$ionic.loadingController
+        .create({
+          message: "Loading",
+          duration: 2000
+        })
+        .then(l => {
+          setTimeout(function() {
+            l.dismiss();
+          }, 2000);
+          return l.present();
+        });
     }
   },
 
   created() {
+    if (firebase.auth().currentUser) {
+      this.isLoggedIn = true;
+      this.currentUserId = firebase.auth().currentUser.uid;
+    }
+    this.presentLoading();
     this.fetchCustomerList();
   }
 };
@@ -91,21 +160,29 @@ b {
   color: #737373 !important;
 }
 
-ion-title, ion-label, ion-badge, ion-searchbar {
-  font-family: Montserrat !important; 
+#title {
+  font-family: Montserrat !important;
+  font-size: 18px !important;
+  letter-spacing: 1px !important;
+  font-size: 18px;
 }
 
-ion-title {
-  font-size: 18px !important; 
-  letter-spacing: 2px !important;
+#logout {
+  font-size: 18px;
 }
 
-ion-label { 
+ion-label,
+ion-badge,
+ion-searchbar {
+  font-family: Montserrat !important;
+}
+
+ion-label {
   font-size: 16px !important;
 }
 
 ion-badge {
-  font-size: 14px !important; 
+  font-size: 14px !important;
   letter-spacing: 1px !important;
 }
 </style>

@@ -26,9 +26,9 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-        <ion-button id="clear-button" fill="clear" expand="full" @click="clearBill()">Clear Bill</ion-button>
       </ion-card>
     </ion-content>
+        <ion-button expand="full" @click="clearBill()">Clear Bill</ion-button>
   </div>
 </template>
 
@@ -108,19 +108,19 @@ ion-card-header {
 ion-input {
   font-family: Montserrat !important;
   font-size: 16px !important;
-  padding: 2px 20px !important;
-  border: 0 !important;
+  width: 80%;
+  margin: 10px 10px;
+  padding: 2px 12px !important;
+  border: 1px solid !important;
+  border-radius: 25px !important;
 }
 
 ion-icon {
   font-size: 16px !important;
 }
 
-#clear-button {
+div > ion-button {
   font-family: Montserrat !important;
   font-size: 16px !important;
-  border-top: 1px solid #737373 !important;
-  margin: 10px 25px !important;
-  padding-top: 5px !important;
 }
 </style>

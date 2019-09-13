@@ -36,9 +36,11 @@ export default new Vuex.Store({
             state.customers = []
             await customerCollection.get().then((res) => {
                 res.docs.forEach((doc) => {
-                    var customerId = doc.id
-                    var customerData = doc.data()
-                    commit('ADD_CUSTOMER', { customerId, customerData })
+                    if (firebase.auth().currentUser.uid == doc.data().userId) {
+                        var customerId = doc.id
+                        var customerData = doc.data()
+                        commit('ADD_CUSTOMER', { customerId, customerData })
+                    }                   
                 })
             })
         },
@@ -49,7 +51,8 @@ export default new Vuex.Store({
                 company: customerData.company,
                 amt_due: +customerData.amt_due,
                 note: customerData.note,
-                accountTS: firebase.firestore.Timestamp.now()
+                accountTS: firebase.firestore.Timestamp.now(),
+                userId: firebase.auth().currentUser.uid
             }).then((doc) => {
                 var customerId = doc.id
                 commit('ADD_CUSTOMER', { customerId, customerData })

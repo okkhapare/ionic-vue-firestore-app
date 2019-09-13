@@ -15,7 +15,7 @@
             <ion-col>
               <b>{{ this.selectedCustomerDetails.name }}</b>
             </ion-col>
-            <ion-col text-center>Account Created At: {{ this.selectedCustomerDetails.accountTS | timeFormat }}</ion-col>
+            <ion-col size="auto">(Account Created At: {{ this.selectedCustomerDetails.accountTS | timeFormat }})</ion-col>
           </ion-row>
           <ion-row>
             <ion-col>{{ this.selectedCustomerDetails.mobile }}</ion-col>
@@ -89,7 +89,7 @@
             @click="addOrder()"
             expand="full"
             fill="clear"
-          >&#8377; Add Order</ion-button>
+          >+ Add Order</ion-button>
           <!-- </ion-col>
           </ion-row>-->
         </ion-grid>
@@ -266,7 +266,7 @@ ion-input {
   font-size: 16px !important;
   border-top: 1px solid #737373 !important;
   margin: 5px 15px !important;
-  padding-top: 5px !important;
+  padding-top: 10px !important;
 }
 
 ion-chip {
