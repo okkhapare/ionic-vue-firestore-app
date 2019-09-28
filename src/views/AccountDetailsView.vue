@@ -2,9 +2,16 @@
   <div class="ion-page">
     <ion-header>
       <ion-toolbar>
-        <ion-button fill="clear" @click="$router.push({ name: 'AccountList' })">
-          <ion-icon name="arrow-back"></ion-icon>
-        </ion-button>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="1.5" style="text-align: center;">
+              <ion-icon name="arrow-back" @click="$router.push({ name: 'AccountList' })"></ion-icon>
+            </ion-col>
+            <ion-col style="font-size: 18px;">
+              <p style="margin: 0px;">Account Details</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-toolbar>
     </ion-header>
 
@@ -15,16 +22,18 @@
             <ion-col>
               <b>{{ this.selectedCustomerDetails.name }}</b>
             </ion-col>
-            <ion-col size="auto">(Account Created At: {{ this.selectedCustomerDetails.accountTS | timeFormat }})</ion-col>
+            <ion-col
+              size="auto"
+            >(Account Created At: {{ this.selectedCustomerDetails.accountTS | timeFormat }})</ion-col>
           </ion-row>
           <ion-row>
-            <ion-col>{{ this.selectedCustomerDetails.mobile }}</ion-col>
+            <ion-col><p style="display: inline; font-size: 15px; font-weight: 600;">Mobile</p> - {{ this.selectedCustomerDetails.mobile }}</ion-col>
           </ion-row>
           <ion-row>
-            <ion-col>{{ this.selectedCustomerDetails.company }}</ion-col>
+            <ion-col><p style="display: inline; font-size: 15px; font-weight: 600;">Company</p> - {{ this.selectedCustomerDetails.company }}</ion-col>
           </ion-row>
           <ion-row>
-            <ion-col>Note: {{ this.selectedCustomerDetails.note }}</ion-col>
+            <ion-col><p style="display: inline; font-size: 15px; font-weight: 600;">Note</p> - {{ this.selectedCustomerDetails.note }}</ion-col>
           </ion-row>
           <ion-row>
             <ion-col>
@@ -84,12 +93,7 @@
           </ion-row>
           <!-- <ion-row>
           <ion-col>-->
-          <ion-button
-            id="add-order"
-            @click="addOrder()"
-            expand="full"
-            fill="clear"
-          >+ Add Order</ion-button>
+          <ion-button id="add-order" @click="addOrder()" expand="full" fill="clear">+ Add Order</ion-button>
           <!-- </ion-col>
           </ion-row>-->
         </ion-grid>
@@ -167,11 +171,11 @@ export default {
 
         return this.$ionic.alertController
           .create({
-            header: 'Success',
-            message: 'Order placed successfully!',
-            buttons: ['OK'],
+            header: "Success",
+            message: "Order placed successfully!",
+            buttons: ["OK"]
           })
-          .then(a => a.present())
+          .then(a => a.present());
       }
     },
     deleteAccount(customerId) {
@@ -235,7 +239,7 @@ ion-card {
 
 ion-col {
   font-family: Montserrat !important;
-  padding: 7px 15px;
+  /* padding: 7px 15px; */
 }
 
 b {

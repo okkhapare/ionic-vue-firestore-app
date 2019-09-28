@@ -2,12 +2,19 @@
   <div class="ion-page">
     <ion-header>
       <ion-header>
-        <ion-toolbar>
-          <ion-button fill="clear" @click="$router.push({ name: 'AccountDetails' })">
-            <ion-icon name="arrow-back"></ion-icon>
-          </ion-button>
-        </ion-toolbar>
-      </ion-header>
+      <ion-toolbar>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="1.5" style="text-align: center;">
+              <ion-icon name="arrow-back" @click="$router.push({ name: 'AccountDetails' })"></ion-icon>
+            </ion-col>
+            <ion-col style="font-size: 18px;">
+              <p style="margin: 0px;">Bill Report</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-toolbar>
+    </ion-header>
       <ion-grid>
         <ion-row text-center>
           <ion-col>
@@ -18,12 +25,13 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-    </ion-header>
+      </ion-header>
     <ion-content>
       <ion-grid>
         <ion-row v-for="order in orderList" :key="order.id" text-center>
           <ion-col class="order">{{ order.orderTS.seconds | timeFormat }}</ion-col>
-          <ion-col class="order">{{ order.price }}</ion-col>
+          <ion-col v-if="order.order_type" style="color: green;">- &#8377;{{ order.price }}</ion-col>
+          <ion-col v-else class="order">&#8377;{{ order.price }}</ion-col>
         </ion-row>
       </ion-grid>
     </ion-content>

@@ -2,9 +2,16 @@
   <div class="ion-page">
     <ion-header>
       <ion-toolbar>
-        <ion-button fill="clear" @click="$router.push({ name: 'Bill' })">
-          <ion-icon name="arrow-back"></ion-icon>
-        </ion-button>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="1.5" style="text-align: center;">
+              <ion-icon name="arrow-back" @click="$router.push({ name: 'Bill' })"></ion-icon>
+            </ion-col>
+            <ion-col style="font-size: 18px;">
+              <p style="margin: 0px; font-family: Montserrat;">Clear Bill</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-toolbar>
     </ion-header>
     <ion-content>
@@ -28,12 +35,13 @@
         </ion-grid>
       </ion-card>
     </ion-content>
-        <ion-button expand="full" @click="clearBill()">Clear Bill</ion-button>
+    <ion-button expand="full" @click="clearBill()">Clear Bill</ion-button>
   </div>
 </template>
 
 <script>
-import { db, customerCollection } from "../firebase";
+import firebase from 'firebase';
+import { db, customerCollection, orderCollection } from "../firebase";
 
 export default {
   name: "ClearBill",
@@ -65,6 +73,12 @@ export default {
           .then(a => a.present());
       } else {
         const docRef = customerCollection.doc(this.$route.params.customerId);
+        orderCollection.add({
+            custId: this.$route.params.customerId,
+            orderTS: firebase.firestore.Timestamp.now(),
+            price: +this.amt_due,
+            order_type: 'cleared'
+          });
         db.runTransaction(transaction => {
           return transaction.get(docRef).then(doc => {
             // changing value at server

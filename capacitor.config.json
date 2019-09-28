@@ -1,0 +1,7 @@
+{
+  "appId": "com.example.catering",
+  "appName": "Catering Account Management",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "dist"
+}

@@ -2,9 +2,16 @@
   <div class="ion-page">
     <ion-header>
       <ion-toolbar>
-        <ion-button fill="clear" @click="$router.push({ name: 'AccountList' })">
-          <ion-icon name="arrow-back"></ion-icon>
-        </ion-button>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="1.5" style="text-align: center;">
+              <ion-icon name="arrow-back" @click="$router.push({ name: 'AccountList' })"></ion-icon>
+            </ion-col>
+            <ion-col style="font-size: 18px;">
+              <p style="margin: 0px; font-family: Montserrat;">Add Account</p>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-toolbar>
     </ion-header>
 
@@ -98,6 +105,7 @@ export default {
           .then(a => a.present())
       } else {
         this.addCustomer(this.customer)
+        this.$router.push({ name: 'AccountList' })
         return this.$ionic.alertController
           .create({
             header: 'Success',
