@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Catering Account Management</string>
+    <string name="title_activity_main">Catering Account Management</string>
+    <string name="package_name">com.example.catering</string>
+    <string name="fileprovider_authority">com.example.catering.fileprovider</string>
+    <string name="custom_url_scheme">com.example.catering</string>
+</resources>
